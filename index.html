@@ -13,11 +13,14 @@
         .table thead { background-color: #003366; color: white; }
         .btn-apply { background-color: #ce9d00; color: white; border: none; font-weight: bold; }
         .btn-apply:hover { background-color: #b08600; color: white; }
+        .status { font-size: 0.9rem; color: #4a4a4a; }
     </style>
 </head>
 <body>
 
 <div class="container-fluid py-4">
+    <div id="status" class="alert alert-info status mb-4">Loading job listings...</div>
+
     <h2>Civil Service Listings</h2>
     <div class="card p-3">
         <table id="civilServiceTable" class="table table-hover w-100">
@@ -30,8 +33,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody id="civil-service-data">
-                </tbody>
+            <tbody id="civil-service-data"></tbody>
         </table>
     </div>
 
@@ -47,8 +49,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody id="rcuh-data">
-                </tbody>
+            <tbody id="rcuh-data"></tbody>
         </table>
     </div>
 </div>
@@ -58,28 +59,61 @@
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-    // This script pulls the data from the jobs.json file created by your scraper
+    function sourceBadge(job) {
+        return job.source === 'indeed' ? ' <span class="badge text-bg-warning">Indeed</span>' : '';
+    }
+
+    function updateStatus(data) {
+        const status = document.getElementById('status');
+        const generated = data.generated_at_utc ? new Date(data.generated_at_utc).toLocaleString() : 'unknown';
+        const fallbackText = data.fallbacks && data.fallbacks.length ? ` Fallbacks: ${data.fallbacks.join(', ')}.` : '';
+
+        if (data.errors && data.errors.length) {
+            status.className = 'alert alert-warning status mb-4';
+            status.textContent = `Updated ${generated}. Some sources were unavailable.${fallbackText}`;
+        } else {
+            status.className = 'alert alert-success status mb-4';
+            status.textContent = `Updated ${generated}. Data loaded successfully.${fallbackText}`;
+        }
+    }
+
     fetch('jobs.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`jobs.json request failed: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             const csTable = $('#civilServiceTable').DataTable();
             const rcuhTable = $('#rcuhTable').DataTable();
 
-            // Populate Civil Service
             data.civil_service.forEach(job => {
                 csTable.row.add([
-                    job.title, job.dept, job.location, job.salary,
-                    `<a href="${job.link}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`
+                    `${job.title}${sourceBadge(job)}`,
+                    job.dept || 'DLNR',
+                    job.location || 'See Listing',
+                    job.salary || 'See Listing',
+                    `<a href="${job.link}" target="_blank" rel="noopener" class="btn btn-sm btn-apply">View Job</a>`
                 ]).draw();
             });
 
-            // Populate RCUH
             data.rcuh.forEach(job => {
                 rcuhTable.row.add([
-                    job.title, job.id, job.project, job.closing,
-                    `<a href="${job.link}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`
+                    `${job.title}${sourceBadge(job)}`,
+                    job.id || 'See Listing',
+                    job.project || 'RCUH',
+                    job.closing || 'See Listing',
+                    `<a href="${job.link}" target="_blank" rel="noopener" class="btn btn-sm btn-apply">View Job</a>`
                 ]).draw();
             });
+
+            updateStatus(data);
+        })
+        .catch(error => {
+            const status = document.getElementById('status');
+            status.className = 'alert alert-danger status mb-4';
+            status.textContent = `Unable to load jobs.json: ${error.message}`;
         });
 </script>
 </body>
