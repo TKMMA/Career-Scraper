@@ -4,6 +4,8 @@ import re
 from datetime import datetime, timezone
 from html import unescape
 from typing import Any
+from urllib.parse import quote_plus
+from xml.etree import ElementTree
 
 import requests
 
@@ -15,6 +17,7 @@ RCUH_URL = (
     "https://hr.rcuh.com/psc/hcmprd_exapp/EMPLOYEE/HRMS/c/"
     "HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB_FL&Action=U"
 )
+INDEED_RSS_URL = "https://www.indeed.com/rss"
 
 DEFAULT_HEADERS = {
     "User-Agent": (
@@ -52,7 +55,6 @@ def scrape_civil_service() -> list[dict[str, str]]:
         html,
         flags=re.IGNORECASE,
     )
-
     if not item_blocks:
         item_blocks = re.findall(r"(<tr[^>]*>[\s\S]*?</tr>)", html, flags=re.IGNORECASE)
 
@@ -102,6 +104,7 @@ def scrape_civil_service() -> list[dict[str, str]]:
                     "See Position Description",
                 ),
                 "link": link,
+                "source": "governmentjobs",
             }
         )
 
@@ -112,7 +115,6 @@ def scrape_rcuh() -> list[dict[str, str]]:
     html = fetch_page(RCUH_URL)
 
     jobs: list[dict[str, str]] = []
-
     title_matches = re.findall(r'id="[^"]*SCH_JOB_TITLE[^"]*"[^>]*>([\s\S]*?)<', html, flags=re.IGNORECASE)
     id_matches = re.findall(r'id="[^"]*SCH_JOB_ID[^"]*"[^>]*>([\s\S]*?)<', html, flags=re.IGNORECASE)
 
@@ -128,10 +130,78 @@ def scrape_rcuh() -> list[dict[str, str]]:
                 "project": "RCUH",
                 "closing": "See Listing",
                 "link": RCUH_URL,
+                "source": "rcuh",
             }
         )
 
     return jobs
+
+
+def scrape_indeed_rss(query: str, location: str = "Hawaii") -> list[dict[str, str]]:
+    url = f"{INDEED_RSS_URL}?q={quote_plus(query)}&l={quote_plus(location)}"
+    xml_text = fetch_page(url)
+    root = ElementTree.fromstring(xml_text)
+
+    jobs: list[dict[str, str]] = []
+    for item in root.findall("./channel/item"):
+        title = (item.findtext("title") or "").strip()
+        link = (item.findtext("link") or "").strip() or "https://www.indeed.com"
+        company = (item.findtext("author") or "Indeed").strip()
+        description = strip_tags(item.findtext("description") or "")
+        if not title:
+            continue
+        jobs.append(
+            {
+                "title": title,
+                "company": company,
+                "location": location,
+                "description": description,
+                "link": link,
+                "source": "indeed",
+            }
+        )
+
+    return jobs
+
+
+def apply_indeed_fallback(results: dict[str, Any]) -> None:
+    if not results["civil_service"]:
+        try:
+            indeed_civil = scrape_indeed_rss("Hawaii Land Natural Resources civil service")
+            for job in indeed_civil:
+                results["civil_service"].append(
+                    {
+                        "title": job["title"],
+                        "dept": job["company"],
+                        "location": job["location"],
+                        "salary": "See Listing",
+                        "link": job["link"],
+                        "source": "indeed",
+                    }
+                )
+            if indeed_civil:
+                results["fallbacks"].append("civil_service: indeed")
+        except Exception as exc:  # noqa: BLE001
+            results["errors"].append(f"civil_service_indeed_fallback: {type(exc).__name__}: {exc}")
+
+    if not results["rcuh"]:
+        try:
+            indeed_rcuh = scrape_indeed_rss("Research Corporation University of Hawaii RCUH")
+            for job in indeed_rcuh:
+                results["rcuh"].append(
+                    {
+                        "title": job["title"],
+                        "id": "Indeed",
+                        "project": job["company"],
+                        "closing": "See Listing",
+                        "link": job["link"],
+                        "source": "indeed",
+                    }
+                )
+            if indeed_rcuh:
+                results["fallbacks"].append("rcuh: indeed")
+        except Exception as exc:  # noqa: BLE001
+            results["errors"].append(f"rcuh_indeed_fallback: {type(exc).__name__}: {exc}")
 
 
 def scrape_all() -> dict[str, Any]:
@@ -140,6 +210,7 @@ def scrape_all() -> dict[str, Any]:
         "civil_service": [],
         "rcuh": [],
         "errors": [],
+        "fallbacks": [],
     }
 
     for name, scraper in (("civil_service", scrape_civil_service), ("rcuh", scrape_rcuh)):
@@ -151,6 +222,7 @@ def scrape_all() -> dict[str, Any]:
             logging.warning("Failed scrape for %s: %s", name, exc)
             results["errors"].append(message)
 
+    apply_indeed_fallback(results)
     return results
 
 
