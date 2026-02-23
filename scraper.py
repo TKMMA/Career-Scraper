@@ -6,10 +6,7 @@ from typing import Any
 from urllib.parse import urljoin
 
 import requests
-try:
-    from bs4 import BeautifulSoup
-except ImportError:  # pragma: no cover
-    BeautifulSoup = None
+from bs4 import BeautifulSoup
 
 DLNR_JOBS_URL = "https://dlnr.hawaii.gov/jobs/"
 
@@ -24,125 +21,96 @@ DEFAULT_HEADERS = {
 TIMEOUT_SECONDS = 40
 
 
-def fetch_html(url: str) -> str:
-    response = requests.get(url, headers=DEFAULT_HEADERS, timeout=TIMEOUT_SECONDS)
-    response.raise_for_status()
-    return response.text
-
-
-
-
-def build_soup(html: str) -> Any:
-    if BeautifulSoup is None:
-        raise RuntimeError("beautifulsoup4 is required at runtime. Install dependencies with: pip install -r requirements.txt")
-    return BeautifulSoup(html, "html.parser")
-
 def clean_text(value: str) -> str:
     return re.sub(r"\s+", " ", value or "").strip()
 
 
-def extract_link_from_cell(cell: Any, base_url: str) -> str:
-    anchor = cell.find("a", href=True) if cell else None
-    if not anchor:
-        return base_url
-    return urljoin(base_url, anchor["href"])
+def fetch_jobs_page() -> BeautifulSoup:
+    response = requests.get(DLNR_JOBS_URL, headers=DEFAULT_HEADERS, timeout=TIMEOUT_SECONDS)
+    response.raise_for_status()
+    return BeautifulSoup(response.text, "html.parser")
 
 
-def row_to_cells(row: Any) -> list[str]:
-    return [clean_text(cell.get_text(" ", strip=True)) for cell in row.find_all(["td", "th"])]
+def parse_civil_service(soup: BeautifulSoup) -> list[dict[str, str]]:
+    """
+    Scrape the first table under the Current Openings area.
+    Mapping requested by user:
+      - Column 1 (date) ignored
+      - Column 2 -> title + link
+      - Column 3 -> id (recruitment)
+    """
+    table = soup.find("table")
+    if table is None:
+        raise ValueError("No table found on DLNR jobs page")
 
-
-def parse_civil_service_table(soup: BeautifulSoup, base_url: str) -> list[dict[str, str]]:
     jobs: list[dict[str, str]] = []
 
-    civil_heading = soup.find(
-        lambda tag: tag.name in {"h2", "h3", "h4"}
-        and "civil service" in clean_text(tag.get_text()).lower()
-    )
+    for row in table.find_all("tr"):
+        cells = row.find_all("td")
+        if len(cells) < 3:
+            continue
 
-    candidate_tables: list[Any] = []
-    if civil_heading:
-        next_table = civil_heading.find_next("table")
-        if next_table:
-            candidate_tables.append(next_table)
+        title_cell = cells[1]
+        recruitment_cell = cells[2]
 
-    # Fallback: inspect all tables and pick ones with job-like headers.
-    for table in soup.find_all("table"):
-        header_text = clean_text(table.get_text(" ", strip=True)).lower()
-        if any(key in header_text for key in ["job", "position", "salary", "location"]):
-            if table not in candidate_tables:
-                candidate_tables.append(table)
+        anchor = title_cell.find("a", href=True)
+        title = clean_text(anchor.get_text(" ", strip=True) if anchor else title_cell.get_text(" ", strip=True))
+        if not title:
+            continue
 
-    for table in candidate_tables:
-        for row in table.find_all("tr"):
-            cells = row.find_all("td")
-            if not cells:
-                continue
+        link = urljoin(DLNR_JOBS_URL, anchor["href"]) if anchor else DLNR_JOBS_URL
+        recruitment_id = clean_text(recruitment_cell.get_text(" ", strip=True)) or "See Listing"
 
-            values = row_to_cells(row)
-            title = values[0] if values else ""
-            if not title or "job title" in title.lower():
-                continue
-
-            job = {
+        jobs.append(
+            {
                 "title": title,
+                "id": recruitment_id,
                 "dept": "DLNR",
-                "location": values[1] if len(values) > 1 and values[1] else "See Listing",
-                "salary": values[2] if len(values) > 2 and values[2] else "See Listing",
-                "link": extract_link_from_cell(cells[0], base_url),
-                "source": "dlnr",
+                "location": "See Listing",
+                "salary": "See Listing",
+                "link": link,
             }
-            jobs.append(job)
-
-        if jobs:
-            break
+        )
 
     return jobs
 
 
-def parse_rcuh_section(soup: BeautifulSoup, base_url: str) -> list[dict[str, str]]:
+def parse_rcuh(soup: BeautifulSoup) -> list[dict[str, str]]:
+    """
+    From the 'More ways to mālama Hawaiʻi' section, include links whose
+    text contains RCUH or Research Corporation of the University of Hawaii.
+    """
     jobs: list[dict[str, str]] = []
-
-    # Strategy 1: explicit RCUH section heading then parse nearby links/rows.
-    rcuh_heading = soup.find(
-        lambda tag: tag.name in {"h2", "h3", "h4"}
-        and "rcuh" in clean_text(tag.get_text()).lower()
-    )
-
-    search_scopes: list[Any] = []
-    if rcuh_heading:
-        section = rcuh_heading.find_parent(["section", "div", "article"]) or rcuh_heading
-        search_scopes.append(section)
-
-    # Strategy 2 fallback: entire page, filter to links mentioning RCUH.
-    search_scopes.append(soup)
-
     seen_links: set[str] = set()
-    for scope in search_scopes:
-        for anchor in scope.find_all("a", href=True):
-            label = clean_text(anchor.get_text(" ", strip=True))
-            href = urljoin(base_url, anchor["href"])
-            blob = f"{label} {href}".lower()
 
-            if "rcuh" not in blob:
-                continue
-            if href in seen_links:
-                continue
+    section_heading = soup.find(
+        lambda tag: tag.name in {"h2", "h3", "h4"}
+        and "more ways to mālama hawai" in clean_text(tag.get_text()).lower()
+    )
+    scope: Any = section_heading.find_parent(["section", "div", "article"]) if section_heading else soup
+    if scope is None:
+        scope = soup
 
-            seen_links.add(href)
-            jobs.append(
-                {
-                    "title": label or "RCUH Position",
-                    "id": "See Listing",
-                    "project": "RCUH",
-                    "closing": "See Listing",
-                    "link": href,
-                    "source": "dlnr",
-                }
-            )
+    for anchor in scope.find_all("a", href=True):
+        label = clean_text(anchor.get_text(" ", strip=True))
+        combined = label.lower()
+        if "rcuh" not in combined and "research corporation of the university of hawaii" not in combined:
+            continue
 
-        if jobs:
-            break
+        link = urljoin(DLNR_JOBS_URL, anchor["href"])
+        if link in seen_links:
+            continue
+        seen_links.add(link)
+
+        jobs.append(
+            {
+                "title": label or "RCUH Position",
+                "id": "See Listing",
+                "project": "RCUH",
+                "closing": "See Listing",
+                "link": link,
+            }
+        )
 
     return jobs
 
@@ -156,29 +124,34 @@ def scrape_all() -> dict[str, Any]:
     }
 
     try:
-        html = fetch_html(DLNR_JOBS_URL)
-        soup = build_soup(html)
+        soup = fetch_jobs_page()
+    except Exception as exc:  # noqa: BLE001
+        result["errors"].append(f"dlnr_jobs_page_fetch: {type(exc).__name__}: {exc}")
+        return result
 
-        result["civil_service"] = parse_civil_service_table(soup, DLNR_JOBS_URL)
-        result["rcuh"] = parse_rcuh_section(soup, DLNR_JOBS_URL)
-
+    try:
+        result["civil_service"] = parse_civil_service(soup)
         logging.info("Civil Service rows: %s", len(result["civil_service"]))
+    except Exception as exc:  # noqa: BLE001
+        result["errors"].append(f"civil_service_parse: {type(exc).__name__}: {exc}")
+
+    try:
+        result["rcuh"] = parse_rcuh(soup)
         logging.info("RCUH rows: %s", len(result["rcuh"]))
     except Exception as exc:  # noqa: BLE001
-        result["errors"].append(f"dlnr_jobs_page: {type(exc).__name__}: {exc}")
-        logging.warning("Failed to scrape DLNR jobs page: %s", exc)
+        result["errors"].append(f"rcuh_parse: {type(exc).__name__}: {exc}")
 
     return result
 
 
 def main() -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    data = scrape_all()
+    payload = scrape_all()
     with open("jobs.json", "w", encoding="utf-8") as file:
-        json.dump(data, file, indent=2, ensure_ascii=False)
+        json.dump(payload, file, indent=2, ensure_ascii=False)
 
-    if data["errors"]:
-        logging.warning("Completed with errors: %s", "; ".join(data["errors"]))
+    if payload["errors"]:
+        logging.warning("Completed with errors: %s", "; ".join(payload["errors"]))
 
     return 0
 
