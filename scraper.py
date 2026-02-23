@@ -3,156 +3,99 @@ import logging
 import re
 from datetime import datetime, timezone
 from typing import Any
-from urllib.parse import urljoin
+from xml.etree import ElementTree
 
 import requests
-from bs4 import BeautifulSoup
 
-DLNR_JOBS_URL = "https://dlnr.hawaii.gov/jobs/"
-
+NEOGOV_RSS_URL = "https://www.governmentjobs.com/SearchEngine/JobsFeed?agency=hawaii"
+TIMEOUT_SECONDS = 40
 DEFAULT_HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/125.0.0.0 Safari/537.36"
     ),
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8",
 }
-TIMEOUT_SECONDS = 40
+DLNR_FILTER_TEXT = "land & natural resources"
 
 
 def clean_text(value: str) -> str:
     return re.sub(r"\s+", " ", value or "").strip()
 
 
-def fetch_jobs_page() -> BeautifulSoup:
-    response = requests.get(DLNR_JOBS_URL, headers=DEFAULT_HEADERS, timeout=TIMEOUT_SECONDS)
+def extract_salary(description: str) -> str:
+    normalized = clean_text(description)
+    match = re.search(r"salary\s*:?\s*(.+?)(?:\.|<|$)", normalized, flags=re.IGNORECASE)
+    if match:
+        return clean_text(match.group(1))
+
+    # Fallback for common patterns like "$5,000 - $6,000/month" appearing in description text.
+    range_match = re.search(r"(\$[\d,]+(?:\.\d{2})?\s*(?:-|to)\s*\$[\d,]+(?:\.\d{2})?(?:\s*/\s*\w+)?)", normalized, flags=re.IGNORECASE)
+    if range_match:
+        return clean_text(range_match.group(1))
+
+    return "See Listing"
+
+
+def contains_dlnr_text(category: str, description: str) -> bool:
+    haystack = f"{category} {description}".lower()
+    haystack = haystack.replace("&amp;", "&")
+    return DLNR_FILTER_TEXT in haystack
+
+
+def fetch_feed_items() -> list[dict[str, str]]:
+    response = requests.get(NEOGOV_RSS_URL, headers=DEFAULT_HEADERS, timeout=TIMEOUT_SECONDS)
     response.raise_for_status()
-    return BeautifulSoup(response.text, "html.parser")
 
+    root = ElementTree.fromstring(response.text)
+    items: list[dict[str, str]] = []
 
-def parse_civil_service(soup: BeautifulSoup) -> list[dict[str, str]]:
-    """
-    Scrape the first table under the Current Openings area.
-    Mapping requested by user:
-      - Column 1 (date) ignored
-      - Column 2 -> title + link
-      - Column 3 -> id (recruitment)
-    """
-    table = soup.find("table")
-    if table is None:
-        raise ValueError("No table found on DLNR jobs page")
+    for item in root.findall("./channel/item"):
+        title = clean_text(item.findtext("title", default=""))
+        link = clean_text(item.findtext("link", default=""))
+        category = clean_text(item.findtext("category", default=""))
+        description = clean_text(item.findtext("description", default=""))
 
-    jobs: list[dict[str, str]] = []
-
-    for row in table.find_all("tr"):
-        cells = row.find_all("td")
-        if len(cells) < 3:
+        if not title or not link:
             continue
 
-        title_cell = cells[1]
-        recruitment_cell = cells[2]
-
-        anchor = title_cell.find("a", href=True)
-        title = clean_text(anchor.get_text(" ", strip=True) if anchor else title_cell.get_text(" ", strip=True))
-        if not title:
+        if not contains_dlnr_text(category, description):
             continue
 
-        link = urljoin(DLNR_JOBS_URL, anchor["href"]) if anchor else DLNR_JOBS_URL
-        recruitment_id = clean_text(recruitment_cell.get_text(" ", strip=True)) or "See Listing"
-
-        jobs.append(
+        items.append(
             {
                 "title": title,
-                "id": recruitment_id,
+                "link": link,
                 "dept": "DLNR",
-                "location": "See Listing",
-                "salary": "See Listing",
-                "link": link,
+                "salary": extract_salary(description),
             }
         )
 
-    return jobs
+    return items
 
 
-def parse_rcuh(soup: BeautifulSoup) -> list[dict[str, str]]:
-    """
-    From the 'More ways to mālama Hawaiʻi' section, include links whose
-    text contains RCUH or Research Corporation of the University of Hawaii.
-    """
-    jobs: list[dict[str, str]] = []
-    seen_links: set[str] = set()
-
-    section_heading = soup.find(
-        lambda tag: tag.name in {"h2", "h3", "h4"}
-        and "more ways to mālama hawai" in clean_text(tag.get_text()).lower()
-    )
-    scope: Any = section_heading.find_parent(["section", "div", "article"]) if section_heading else soup
-    if scope is None:
-        scope = soup
-
-    for anchor in scope.find_all("a", href=True):
-        label = clean_text(anchor.get_text(" ", strip=True))
-        combined = label.lower()
-        if "rcuh" not in combined and "research corporation of the university of hawaii" not in combined:
-            continue
-
-        link = urljoin(DLNR_JOBS_URL, anchor["href"])
-        if link in seen_links:
-            continue
-        seen_links.add(link)
-
-        jobs.append(
-            {
-                "title": label or "RCUH Position",
-                "id": "See Listing",
-                "project": "RCUH",
-                "closing": "See Listing",
-                "link": link,
-            }
-        )
-
-    return jobs
-
-
-def scrape_all() -> dict[str, Any]:
-    result: dict[str, Any] = {
-        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+def build_payload() -> dict[str, Any]:
+    payload: dict[str, Any] = {
+        "generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "civil_service": [],
         "rcuh": [],
-        "errors": [],
     }
 
     try:
-        soup = fetch_jobs_page()
+        payload["civil_service"] = fetch_feed_items()
+        logging.info("Civil Service rows: %s", len(payload["civil_service"]))
     except Exception as exc:  # noqa: BLE001
-        result["errors"].append(f"dlnr_jobs_page_fetch: {type(exc).__name__}: {exc}")
-        return result
+        logging.warning("NEOGOV RSS fetch failed: %s", exc)
 
-    try:
-        result["civil_service"] = parse_civil_service(soup)
-        logging.info("Civil Service rows: %s", len(result["civil_service"]))
-    except Exception as exc:  # noqa: BLE001
-        result["errors"].append(f"civil_service_parse: {type(exc).__name__}: {exc}")
-
-    try:
-        result["rcuh"] = parse_rcuh(soup)
-        logging.info("RCUH rows: %s", len(result["rcuh"]))
-    except Exception as exc:  # noqa: BLE001
-        result["errors"].append(f"rcuh_parse: {type(exc).__name__}: {exc}")
-
-    return result
+    return payload
 
 
 def main() -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    payload = scrape_all()
+    payload = build_payload()
     with open("jobs.json", "w", encoding="utf-8") as file:
         json.dump(payload, file, indent=2, ensure_ascii=False)
-
-    if payload["errors"]:
-        logging.warning("Completed with errors: %s", "; ".join(payload["errors"]))
-
     return 0
 
 
