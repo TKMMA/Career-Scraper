@@ -11,26 +11,28 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          pip install selenium==4.9.0 webdriver-manager pandas
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Run Scraper
+      - name: Run scraper
         run: python scraper.py
 
-      - name: Commit and Push changes
+      - name: Commit and push changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add jobs.json
-          git commit -m "Updated job listings" || echo "No changes to commit"
+          git commit -m "Update job listings" || echo "No changes to commit"
           git push
