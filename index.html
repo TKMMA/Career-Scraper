@@ -1,1 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAR Job Listings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <style>
+        body { background-color: transparent; font-family: 'Segoe UI', Roboto, sans-serif; }
+        h2 { color: #003366; border-bottom: 2px solid #ce9d00; padding-bottom: 10px; margin-top: 30px; font-weight: 700; }
+        .card { border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 40px; }
+        .table thead { background-color: #003366; color: white; }
+        .btn-apply { background-color: #ce9d00; color: white; border: none; font-weight: bold; }
+        .btn-apply:hover { background-color: #b08600; color: white; }
+    </style>
+</head>
+<body>
 
+<div class="container-fluid py-4">
+    <h2>Civil Service Listings</h2>
+    <div class="card p-3">
+        <table id="civilServiceTable" class="table table-hover w-100">
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Department</th>
+                    <th>Location</th>
+                    <th>Salary</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="civil-service-data">
+                </tbody>
+        </table>
+    </div>
+
+    <h2>Contract Positions through RCUH</h2>
+    <div class="card p-3">
+        <table id="rcuhTable" class="table table-hover w-100">
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Closing Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="rcuh-data">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    // This script pulls the data from the jobs.json file created by your scraper
+    fetch('jobs.json')
+        .then(response => response.json())
+        .then(data => {
+            const csTable = $('#civilServiceTable').DataTable();
+            const rcuhTable = $('#rcuhTable').DataTable();
+
+            // Populate Civil Service
+            data.civil_service.forEach(job => {
+                csTable.row.add([
+                    job.title, job.dept, job.location, job.salary,
+                    `<a href="${job.link}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`
+                ]).draw();
+            });
+
+            // Populate RCUH
+            data.rcuh.forEach(job => {
+                rcuhTable.row.add([
+                    job.title, job.id, job.project, job.closing,
+                    `<a href="${job.link}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`
+                ]).draw();
+            });
+        });
+</script>
+</body>
+</html>
