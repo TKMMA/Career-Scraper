@@ -5,6 +5,9 @@ on:
     - cron: '0 18 * * *' # Runs daily at 8:00 AM HST (18:00 UTC)
   workflow_dispatch: # Allows you to run it manually for testing
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
