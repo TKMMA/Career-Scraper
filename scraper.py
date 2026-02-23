@@ -2,239 +2,183 @@ import json
 import logging
 import re
 from datetime import datetime, timezone
-from html import unescape
 from typing import Any
-from urllib.parse import quote_plus
-from xml.etree import ElementTree
+from urllib.parse import urljoin
 
 import requests
+try:
+    from bs4 import BeautifulSoup
+except ImportError:  # pragma: no cover
+    BeautifulSoup = None
 
-CIVIL_SERVICE_URL = (
-    "https://www.governmentjobs.com/careers/hawaii"
-    "?department[0]=Land%20%26%20Natural%20Resources&sort=PositionTitle%7CAscending"
-)
-RCUH_URL = (
-    "https://hr.rcuh.com/psc/hcmprd_exapp/EMPLOYEE/HRMS/c/"
-    "HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB_FL&Action=U"
-)
-INDEED_RSS_URL = "https://www.indeed.com/rss"
+DLNR_JOBS_URL = "https://dlnr.hawaii.gov/jobs/"
 
 DEFAULT_HEADERS = {
     "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
-    )
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/125.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
-TIMEOUT_SECONDS = 45
+TIMEOUT_SECONDS = 40
 
 
-def fetch_page(url: str) -> str:
+def fetch_html(url: str) -> str:
     response = requests.get(url, headers=DEFAULT_HEADERS, timeout=TIMEOUT_SECONDS)
     response.raise_for_status()
     return response.text
 
 
-def strip_tags(value: str) -> str:
-    value = re.sub(r"<[^>]+>", " ", value)
-    return re.sub(r"\s+", " ", unescape(value)).strip()
 
 
-def find_first(patterns: list[str], text: str, default: str = "") -> str:
-    for pattern in patterns:
-        match = re.search(pattern, text, flags=re.IGNORECASE | re.DOTALL)
-        if match:
-            return strip_tags(match.group(1))
-    return default
+def build_soup(html: str) -> Any:
+    if BeautifulSoup is None:
+        raise RuntimeError("beautifulsoup4 is required at runtime. Install dependencies with: pip install -r requirements.txt")
+    return BeautifulSoup(html, "html.parser")
+
+def clean_text(value: str) -> str:
+    return re.sub(r"\s+", " ", value or "").strip()
 
 
-def scrape_civil_service() -> list[dict[str, str]]:
-    html = fetch_page(CIVIL_SERVICE_URL)
+def extract_link_from_cell(cell: Any, base_url: str) -> str:
+    anchor = cell.find("a", href=True) if cell else None
+    if not anchor:
+        return base_url
+    return urljoin(base_url, anchor["href"])
 
-    item_blocks = re.findall(
-        r'(<(?:tr|div)[^>]*(?:job-listing-item|class="[^"]*job-table-row[^"]*")[\s\S]*?</(?:tr|div)>)',
-        html,
-        flags=re.IGNORECASE,
+
+def row_to_cells(row: Any) -> list[str]:
+    return [clean_text(cell.get_text(" ", strip=True)) for cell in row.find_all(["td", "th"])]
+
+
+def parse_civil_service_table(soup: BeautifulSoup, base_url: str) -> list[dict[str, str]]:
+    jobs: list[dict[str, str]] = []
+
+    civil_heading = soup.find(
+        lambda tag: tag.name in {"h2", "h3", "h4"}
+        and "civil service" in clean_text(tag.get_text()).lower()
     )
-    if not item_blocks:
-        item_blocks = re.findall(r"(<tr[^>]*>[\s\S]*?</tr>)", html, flags=re.IGNORECASE)
 
-    jobs: list[dict[str, str]] = []
-    for block in item_blocks:
-        title = find_first(
-            [
-                r'class="[^"]*job-item-title[^"]*"[^>]*>([\s\S]*?)</',
-                r"<td[^>]*class=\"[^\"]*title[^\"]*\"[^>]*>([\s\S]*?)</td>",
-                r"<a[^>]*>([\s\S]*?)</a>",
-            ],
-            block,
-        )
-        if not title:
-            continue
+    candidate_tables: list[Any] = []
+    if civil_heading:
+        next_table = civil_heading.find_next("table")
+        if next_table:
+            candidate_tables.append(next_table)
 
-        link_match = re.search(r'<a[^>]*href="([^"]+)"', block, flags=re.IGNORECASE)
-        link = link_match.group(1) if link_match else CIVIL_SERVICE_URL
-        if link.startswith("/"):
-            link = f"https://www.governmentjobs.com{link}"
+    # Fallback: inspect all tables and pick ones with job-like headers.
+    for table in soup.find_all("table"):
+        header_text = clean_text(table.get_text(" ", strip=True)).lower()
+        if any(key in header_text for key in ["job", "position", "salary", "location"]):
+            if table not in candidate_tables:
+                candidate_tables.append(table)
 
-        jobs.append(
-            {
+    for table in candidate_tables:
+        for row in table.find_all("tr"):
+            cells = row.find_all("td")
+            if not cells:
+                continue
+
+            values = row_to_cells(row)
+            title = values[0] if values else ""
+            if not title or "job title" in title.lower():
+                continue
+
+            job = {
                 "title": title,
-                "dept": find_first(
-                    [
-                        r'class="[^"]*job-department[^"]*"[^>]*>([\s\S]*?)</',
-                        r"<td[^>]*class=\"[^\"]*department[^\"]*\"[^>]*>([\s\S]*?)</td>",
-                    ],
-                    block,
-                    "DLNR",
-                ),
-                "location": find_first(
-                    [
-                        r'class="[^"]*job-location[^"]*"[^>]*>([\s\S]*?)</',
-                        r"<td[^>]*class=\"[^\"]*location[^\"]*\"[^>]*>([\s\S]*?)</td>",
-                    ],
-                    block,
-                    "See Listing",
-                ),
-                "salary": find_first(
-                    [
-                        r'class="[^"]*job-salary[^"]*"[^>]*>([\s\S]*?)</',
-                        r"<td[^>]*class=\"[^\"]*salary[^\"]*\"[^>]*>([\s\S]*?)</td>",
-                    ],
-                    block,
-                    "See Position Description",
-                ),
-                "link": link,
-                "source": "governmentjobs",
+                "dept": "DLNR",
+                "location": values[1] if len(values) > 1 and values[1] else "See Listing",
+                "salary": values[2] if len(values) > 2 and values[2] else "See Listing",
+                "link": extract_link_from_cell(cells[0], base_url),
+                "source": "dlnr",
             }
-        )
+            jobs.append(job)
+
+        if jobs:
+            break
 
     return jobs
 
 
-def scrape_rcuh() -> list[dict[str, str]]:
-    html = fetch_page(RCUH_URL)
-
+def parse_rcuh_section(soup: BeautifulSoup, base_url: str) -> list[dict[str, str]]:
     jobs: list[dict[str, str]] = []
-    title_matches = re.findall(r'id="[^"]*SCH_JOB_TITLE[^"]*"[^>]*>([\s\S]*?)<', html, flags=re.IGNORECASE)
-    id_matches = re.findall(r'id="[^"]*SCH_JOB_ID[^"]*"[^>]*>([\s\S]*?)<', html, flags=re.IGNORECASE)
 
-    for idx, raw_title in enumerate(title_matches):
-        title = strip_tags(raw_title)
-        if not title:
-            continue
-        job_id = strip_tags(id_matches[idx]) if idx < len(id_matches) else "See Listing"
-        jobs.append(
-            {
-                "title": title,
-                "id": job_id,
-                "project": "RCUH",
-                "closing": "See Listing",
-                "link": RCUH_URL,
-                "source": "rcuh",
-            }
-        )
+    # Strategy 1: explicit RCUH section heading then parse nearby links/rows.
+    rcuh_heading = soup.find(
+        lambda tag: tag.name in {"h2", "h3", "h4"}
+        and "rcuh" in clean_text(tag.get_text()).lower()
+    )
+
+    search_scopes: list[Any] = []
+    if rcuh_heading:
+        section = rcuh_heading.find_parent(["section", "div", "article"]) or rcuh_heading
+        search_scopes.append(section)
+
+    # Strategy 2 fallback: entire page, filter to links mentioning RCUH.
+    search_scopes.append(soup)
+
+    seen_links: set[str] = set()
+    for scope in search_scopes:
+        for anchor in scope.find_all("a", href=True):
+            label = clean_text(anchor.get_text(" ", strip=True))
+            href = urljoin(base_url, anchor["href"])
+            blob = f"{label} {href}".lower()
+
+            if "rcuh" not in blob:
+                continue
+            if href in seen_links:
+                continue
+
+            seen_links.add(href)
+            jobs.append(
+                {
+                    "title": label or "RCUH Position",
+                    "id": "See Listing",
+                    "project": "RCUH",
+                    "closing": "See Listing",
+                    "link": href,
+                    "source": "dlnr",
+                }
+            )
+
+        if jobs:
+            break
 
     return jobs
-
-
-def scrape_indeed_rss(query: str, location: str = "Hawaii") -> list[dict[str, str]]:
-    url = f"{INDEED_RSS_URL}?q={quote_plus(query)}&l={quote_plus(location)}"
-    xml_text = fetch_page(url)
-    root = ElementTree.fromstring(xml_text)
-
-    jobs: list[dict[str, str]] = []
-    for item in root.findall("./channel/item"):
-        title = (item.findtext("title") or "").strip()
-        link = (item.findtext("link") or "").strip() or "https://www.indeed.com"
-        company = (item.findtext("author") or "Indeed").strip()
-        description = strip_tags(item.findtext("description") or "")
-        if not title:
-            continue
-        jobs.append(
-            {
-                "title": title,
-                "company": company,
-                "location": location,
-                "description": description,
-                "link": link,
-                "source": "indeed",
-            }
-        )
-
-    return jobs
-
-
-def apply_indeed_fallback(results: dict[str, Any]) -> None:
-    if not results["civil_service"]:
-        try:
-            indeed_civil = scrape_indeed_rss("Hawaii Land Natural Resources civil service")
-            for job in indeed_civil:
-                results["civil_service"].append(
-                    {
-                        "title": job["title"],
-                        "dept": job["company"],
-                        "location": job["location"],
-                        "salary": "See Listing",
-                        "link": job["link"],
-                        "source": "indeed",
-                    }
-                )
-            if indeed_civil:
-                results["fallbacks"].append("civil_service: indeed")
-        except Exception as exc:  # noqa: BLE001
-            results["errors"].append(f"civil_service_indeed_fallback: {type(exc).__name__}: {exc}")
-
-    if not results["rcuh"]:
-        try:
-            indeed_rcuh = scrape_indeed_rss("Research Corporation University of Hawaii RCUH")
-            for job in indeed_rcuh:
-                results["rcuh"].append(
-                    {
-                        "title": job["title"],
-                        "id": "Indeed",
-                        "project": job["company"],
-                        "closing": "See Listing",
-                        "link": job["link"],
-                        "source": "indeed",
-                    }
-                )
-            if indeed_rcuh:
-                results["fallbacks"].append("rcuh: indeed")
-        except Exception as exc:  # noqa: BLE001
-            results["errors"].append(f"rcuh_indeed_fallback: {type(exc).__name__}: {exc}")
 
 
 def scrape_all() -> dict[str, Any]:
-    results: dict[str, Any] = {
+    result: dict[str, Any] = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "civil_service": [],
         "rcuh": [],
         "errors": [],
-        "fallbacks": [],
     }
 
-    for name, scraper in (("civil_service", scrape_civil_service), ("rcuh", scrape_rcuh)):
-        try:
-            results[name] = scraper()
-            logging.info("Scraped %s records from %s", len(results[name]), name)
-        except Exception as exc:  # noqa: BLE001
-            message = f"{name}: {type(exc).__name__}: {exc}"
-            logging.warning("Failed scrape for %s: %s", name, exc)
-            results["errors"].append(message)
+    try:
+        html = fetch_html(DLNR_JOBS_URL)
+        soup = build_soup(html)
 
-    apply_indeed_fallback(results)
-    return results
+        result["civil_service"] = parse_civil_service_table(soup, DLNR_JOBS_URL)
+        result["rcuh"] = parse_rcuh_section(soup, DLNR_JOBS_URL)
+
+        logging.info("Civil Service rows: %s", len(result["civil_service"]))
+        logging.info("RCUH rows: %s", len(result["rcuh"]))
+    except Exception as exc:  # noqa: BLE001
+        result["errors"].append(f"dlnr_jobs_page: {type(exc).__name__}: {exc}")
+        logging.warning("Failed to scrape DLNR jobs page: %s", exc)
+
+    return result
 
 
 def main() -> int:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    results = scrape_all()
-
+    data = scrape_all()
     with open("jobs.json", "w", encoding="utf-8") as file:
-        json.dump(results, file, indent=2, ensure_ascii=False)
+        json.dump(data, file, indent=2, ensure_ascii=False)
 
-    if results["errors"]:
-        logging.warning("Completed with errors: %s", "; ".join(results["errors"]))
+    if data["errors"]:
+        logging.warning("Completed with errors: %s", "; ".join(data["errors"]))
 
     return 0
 

@@ -5,35 +5,35 @@ This repository builds `jobs.json` and renders two DataTables in `index.html`:
 - **Civil Service Listings**
 - **Contract Positions through RCUH**
 
-## How data gets into the tables
+## Data flow
 
-1. GitHub Action (`.github/workflows/update_jobs.yml`) runs `python scraper.py` daily.
-2. `scraper.py` writes `jobs.json` into the repo.
-3. `index.html` fetches `jobs.json` and populates both DataTables.
+1. GitHub Action runs `python scraper.py` daily.
+2. `scraper.py` fetches the DLNR jobs page (`https://dlnr.hawaii.gov/jobs/`) using lightweight HTTP requests.
+3. The script parses Civil Service and RCUH data and writes `jobs.json`.
+4. `index.html` fetches `jobs.json` and populates both tables.
 
-If you host `index.html` and `jobs.json` together (for example GitHub Pages), the tables will auto-populate.
+## Why this approach is reliable in GitHub Actions
 
-## Why tables might be empty
+- No Selenium
+- No Chrome/Chromedriver
+- No browser automation dependencies
 
-- The source site blocks automation or data center IP ranges.
-- The source site changed HTML selectors.
-- Temporary network failures.
+Only `requests` + `beautifulsoup4` are required.
 
-The scraper now writes errors into `jobs.json.errors` and marks fallback usage in `jobs.json.fallbacks`.
+## Output contract
 
-## Indeed workaround
+`jobs.json` always contains:
 
-If direct scraping returns no rows, the scraper tries Indeed RSS fallback queries:
+- `civil_service` (array)
+- `rcuh` (array)
+- `errors` (array)
+- `generated_at_utc` (timestamp)
 
-- Civil Service fallback query: `Hawaii Land Natural Resources civil service`
-- RCUH fallback query: `Research Corporation University of Hawaii RCUH`
-
-Rows coming from this fallback are tagged with `source: "indeed"` and displayed with an **Indeed** badge in the table.
+If scraping fails, the script still writes a valid file with error details so the front end can keep running.
 
 ## Embed options
 
-### Option A: iframe (simplest)
-Host this project on GitHub Pages and embed:
+### Option A: iframe
 
 ```html
 <iframe
@@ -43,9 +43,6 @@ Host this project on GitHub Pages and embed:
 ></iframe>
 ```
 
-### Option B: JSON-only + your own frontend
-Use only `jobs.json` from GitHub raw/pages and render with your site framework.
+### Option B: Render your own UI from JSON
 
----
-
-If you need a stronger production setup, next step is a small serverless function (Cloudflare Worker / AWS Lambda) that fetches upstream data and returns normalized JSON with cache + retries.
+Consume `jobs.json` directly from your hosting layer and render with your existing site framework.
