@@ -31,12 +31,12 @@ def main() -> int:
         for item in root.findall("./channel/item"):
             title = (item.findtext("title") or "").strip()
             link = (item.findtext("link") or "").strip()
-            description = (item.findtext("description") or "").strip()
 
-            haystack = f"{title} {description}".lower()
-            if "land" not in haystack and "natural" not in haystack:
-                continue
             if not title or not link:
+                continue
+
+            title_lower = title.lower()
+            if "land" not in title_lower and "natural" not in title_lower:
                 continue
 
             payload["civil_service"].append(
@@ -47,7 +47,6 @@ def main() -> int:
                 }
             )
     except Exception:
-        # Intentionally swallow all errors so workflow always produces jobs.json.
         pass
 
     payload["generated_at_utc"] = now_iso()
