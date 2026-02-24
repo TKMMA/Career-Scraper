@@ -8,21 +8,34 @@ FEED_URL = "https://www.governmentjobs.com/SearchEngine/JobsFeed?agency=hawaii"
 
 def clean_text(text):
     if not text: return ""
+    # Strip HTML tags before processing
+    text = re.sub('<[^<]+?>', '', text)
     words = text.lower().split()
     roman_numerals = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x"]
     return " ".join(w.upper() if w in roman_numerals or w in ["dlnr", "rcuh"] else w.capitalize() for w in words)
 
 def parse_salary_to_yearly(desc):
-    """Finds salary in text and returns a numeric annual value."""
-    # Look for patterns like $3,000 to $4,000 per month or $50,000 per year
-    match = re.search(r'\$(\d{1,3}(?:,\d{3})*)\s*(?:to\s*\$\d{1,3}(?:,\d{3})*)?\s*per\s*(month|year)', desc, re.IGNORECASE)
+    """Aggressive regex to find salary in HTML-heavy descriptions."""
+    # Remove HTML tags first to see plain text
+    text = re.sub('<[^<]+?>', ' ', desc)
+    
+    # Matches patterns like "$3,000 to $4,000 per month" or "$50,000.00 per year"
+    # Group 1: Min Salary, Group 2: Unit (month/year)
+    pattern = r'\$\s*([\d,]+(?:\.\d+)?)(?:\s+to\s+\$\s*[\d,]+(?:\.\d+)?)?\s*per\s*(month|year|hr|hour)'
+    match = re.search(pattern, text, re.IGNORECASE)
+    
     if match:
-        amount = float(match.group(1).replace(',', ''))
-        return amount * 12 if match.group(2).lower() == 'month' else amount
+        try:
+            amount = float(match.group(1).replace(',', ''))
+            unit = match.group(2).lower()
+            if 'month' in unit: return amount * 12
+            if 'yr' in unit or 'year' in unit: return amount
+            if 'hr' in unit or 'hour' in unit: return amount * 2080 # Standard work year
+        except: return None
     return None
 
 def extract_location(title):
-    """Splits title at '-' to pull out location."""
+    """Splits title at '-' to pull out location and cleans both."""
     if "-" in title:
         parts = title.split("-")
         clean_title = parts[0].strip()
