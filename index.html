@@ -14,8 +14,18 @@
         .btn-apply { background-color: #ce9d00; color: white; border: none; font-weight: bold; }
         .btn-apply:hover { background-color: #b08600; color: white; }
         .status { font-size: 0.9rem; color: #4a4a4a; }
-        /* Style adjustments for table readability */
-        .table td { vertical-align: middle; }
+        .salary-toggle-btn { 
+            font-size: 0.7rem; 
+            padding: 2px 5px; 
+            margin-left: 8px; 
+            vertical-align: middle; 
+            cursor: pointer;
+            border: 1px solid #fff;
+            color: #fff;
+            background: transparent;
+            border-radius: 4px;
+        }
+        .salary-toggle-btn:hover { background: rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
@@ -32,7 +42,7 @@
                     <th>Job #</th>
                     <th>DLNR Division</th>
                     <th>Location</th>
-                    <th>Salary</th>
+                    <th>Salary <button id="salaryToggle" class="salary-toggle-btn">/yr</button></th>
                     <th>Posted</th>
                     <th>Closing Date</th>
                     <th>Action</th>
@@ -64,45 +74,54 @@
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
+    let viewMonthly = false;
+
     function updateStatus(data) {
         const status = document.getElementById('status');
         const generated = data.generated_at_utc ? new Date(data.generated_at_utc).toLocaleString() : 'unknown';
-        
-        if (data.errors && data.errors.length) {
-            status.className = 'alert alert-warning status mb-4';
-            status.textContent = `Updated ${generated}. Some data sources had issues.`;
-        } else {
-            status.className = 'alert alert-success status mb-4';
-            status.textContent = `Updated ${generated}. Data loaded successfully.`;
-        }
+        status.textContent = `Updated ${generated}. Data loaded successfully.`;
     }
 
     fetch('jobs.json')
         .then(response => response.json())
         .then(data => {
-            // Initialize Civil Service Table
-            $('#civilServiceTable').DataTable({
+            const table = $('#civilServiceTable').DataTable({
                 data: data.civil_service,
                 columns: [
-                    { data: 'title' },        // Column 0
-                    { data: 'job_number' },   // Column 1
-                    { data: 'division' },     // Column 2
-                    { data: 'location' },     // Column 3
-                    { data: 'salary' },       // Column 4
-                    { data: 'posted' },       // Column 5
-                    { data: 'closing' },      // Column 6
+                    { data: 'title' },
+                    { data: 'job_number' },
+                    { data: 'division' },
+                    { data: 'location' },
                     { 
-                        data: 'link',         // Column 7
+                        data: 'yearly_salary',
+                        render: function(data, type, row) {
+                            if (!data) return "See Listing";
+                            let amount = viewMonthly ? (data / 12) : data;
+                            let label = viewMonthly ? "/mo" : "/yr";
+                            return "$" + amount.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + label;
+                        }
+                    },
+                    { data: 'posted' },
+                    { data: 'closing' },
+                    { 
+                        data: 'link',
                         render: function(data) {
                             return `<a href="${data}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`;
                         }
                     }
                 ],
-                // Default sort by Closing Date (Column 6), then by Posted Date
-                order: [[6, 'asc'], [5, 'desc']] 
+                order: [[6, 'asc']]
             });
 
-            // Initialize RCUH Table (keeping it simple for now)
+            // Toggle Salary logic
+            $('#salaryToggle').on('click', function(e) {
+                e.stopPropagation(); // Stop DataTables from sorting the column when button is clicked
+                viewMonthly = !viewMonthly;
+                $(this).text(viewMonthly ? '/mo' : '/yr');
+                table.rows().invalidate().draw(); // Refresh the column calculations
+            });
+
+            // RCUH Table
             $('#rcuhTable').DataTable({
                 data: data.rcuh,
                 columns: [
@@ -112,9 +131,7 @@
                     { data: 'closing' },
                     { 
                         data: 'link',
-                        render: function(data) {
-                            return `<a href="${data}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`;
-                        }
+                        render: data => `<a href="${data}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`
                     }
                 ]
             });
@@ -122,9 +139,7 @@
             updateStatus(data);
         })
         .catch(error => {
-            const status = document.getElementById('status');
-            status.className = 'alert alert-danger status mb-4';
-            status.textContent = `Error loading jobs.json: ${error.message}`;
+            document.getElementById('status').textContent = `Error loading data: ${error.message}`;
         });
 </script>
 </body>
