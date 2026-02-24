@@ -1,8 +1,147 @@
 {
-  "civil_service": [],
+  "civil_service": [
+    {
+      "title": "NATURAL RESOURCES MANAGEMENT SPECIALIST III AND IV - TEMPORARY - LIHUE, KAUAI",
+      "dept": "DLNR",
+      "location": "Island of Kauai",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5185068"
+    },
+    {
+      "title": "PARK CARETAKER II - OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "4672",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5197386"
+    },
+    {
+      "title": "PARK CARETAKER I - KONA, HAWAII ISLAND (OHHI)",
+      "dept": "DLNR",
+      "location": "Island of Hawaii",
+      "salary": "4368",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5208548"
+    },
+    {
+      "title": "GENERAL PROFESSIONAL IV (HARBOR, INSPECTIONS & AUDITS) - MAALAEA, MAUI",
+      "dept": "DLNR",
+      "location": "Island of Maui",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4955550"
+    },
+    {
+      "title": "ABSTRACTOR IX - DOWNTOWN, OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4378340"
+    },
+    {
+      "title": "ABSTRACTING ASSISTANT V - DOWNTOWN, OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4092249"
+    },
+    {
+      "title": "ABSTRACTING ASSISTANT IV - DOWNTOWN, OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093678"
+    },
+    {
+      "title": "PARK INTERPRETIVE TECHNICIAN - HANALEI, KAUAI",
+      "dept": "DLNR",
+      "location": "Island of Kauai",
+      "salary": "3900",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4413609"
+    },
+    {
+      "title": "LAND AGENT II AND III - LIHUE, KAUAI",
+      "dept": "DLNR",
+      "location": "Island of Kauai",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4916396"
+    },
+    {
+      "title": "CONSTRUCTION & MAINTENANCE SUPERINTENDENT IV - HALAWA TO KALIHI, OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093686"
+    },
+    {
+      "title": "FORESTRY & WILDLIFE TECHNICIAN IV - MAUI",
+      "dept": "DLNR",
+      "location": "Island of Maui",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5184996"
+    },
+    {
+      "title": "FORESTRY & WILDLIFE TECHNICIAN III AND IV - LIHUE, KAUAI",
+      "dept": "DLNR",
+      "location": "Island of Kauai",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4744485"
+    },
+    {
+      "title": "TRAILS AND ACCESS SPECIALIST V  - DOWNTOWN, OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5222134"
+    },
+    {
+      "title": "EDUCATION SPECIALIST (HUNTER & CONSERVATION RESOURCES) III - PEARL CITY, OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/3725829"
+    },
+    {
+      "title": "BOATING AND OCEAN RECREATION MANAGER I - MAALAEA, MAUI",
+      "dept": "DLNR",
+      "location": "Island of Maui",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5062389"
+    },
+    {
+      "title": "BOATING AND OCEAN RECREATION MANAGER I - KAILUA-KONA, HAWAII",
+      "dept": "DLNR",
+      "location": "Island of Hawaii",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5060663"
+    },
+    {
+      "title": "PARK MAINTENANCE SUPERVISOR II - KOKEE, KAUAI",
+      "dept": "DLNR",
+      "location": "Island of Kauai",
+      "salary": "5636",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5060650"
+    },
+    {
+      "title": "FORESTER VI (OUTDOOR RECREATION MANAGER) - OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4869639"
+    },
+    {
+      "title": "ENGINEERING PROGRAM ADMINISTRATOR - DLNR, OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4750455"
+    },
+    {
+      "title": "CONVEYANCING SUPERVISOR - DOWNTOWN, OAHU",
+      "dept": "DLNR",
+      "location": "Island of Oahu",
+      "salary": "See Position Description",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4553832"
+    }
+  ],
   "rcuh": [],
-  "generated_at_utc": "2026-02-24T00:33:26Z",
-  "errors": [
-    "Scrape error: not well-formed (invalid token): line 1, column 1"
-  ]
+  "generated_at_utc": "2026-02-24T00:37:58Z",
+  "errors": []
 }
