@@ -14,6 +14,8 @@
         .btn-apply { background-color: #ce9d00; color: white; border: none; font-weight: bold; }
         .btn-apply:hover { background-color: #b08600; color: white; }
         .status { font-size: 0.9rem; color: #4a4a4a; }
+        /* Style adjustments for table readability */
+        .table td { vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -26,9 +28,12 @@
         <table id="civilServiceTable" class="table table-hover w-100">
             <thead>
                 <tr>
-                    <th>Job #</th>
                     <th>Job Title</th>
+                    <th>Job #</th>
+                    <th>DLNR Division</th>
+                    <th>Location</th>
                     <th>Salary</th>
+                    <th>Posted</th>
                     <th>Closing Date</th>
                     <th>Action</th>
                 </tr>
@@ -79,21 +84,25 @@
             $('#civilServiceTable').DataTable({
                 data: data.civil_service,
                 columns: [
-                    { data: 'job_number' },
-                    { data: 'title' },
-                    { data: 'salary' },
-                    { data: 'closing' },
+                    { data: 'title' },        // Column 0
+                    { data: 'job_number' },   // Column 1
+                    { data: 'division' },     // Column 2
+                    { data: 'location' },     // Column 3
+                    { data: 'salary' },       // Column 4
+                    { data: 'posted' },       // Column 5
+                    { data: 'closing' },      // Column 6
                     { 
-                        data: 'link',
+                        data: 'link',         // Column 7
                         render: function(data) {
                             return `<a href="${data}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`;
                         }
                     }
                 ],
-                order: [[3, 'asc']] // Sort by Closing Date (Column 4)
+                // Default sort by Closing Date (Column 6), then by Posted Date
+                order: [[6, 'asc'], [5, 'desc']] 
             });
 
-            // Initialize RCUH Table
+            // Initialize RCUH Table (keeping it simple for now)
             $('#rcuhTable').DataTable({
                 data: data.rcuh,
                 columns: [
