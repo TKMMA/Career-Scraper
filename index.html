@@ -14,18 +14,24 @@
         .btn-apply { background-color: #ce9d00; color: white; border: none; font-weight: bold; }
         .btn-apply:hover { background-color: #b08600; color: white; }
         .status { font-size: 0.9rem; color: #4a4a4a; }
+        
+        /* Salary Toggle Button Styling */
         .salary-toggle-btn { 
-            font-size: 0.7rem; 
-            padding: 2px 5px; 
-            margin-left: 8px; 
-            vertical-align: middle; 
-            cursor: pointer;
-            border: 1px solid #fff;
-            color: #fff;
-            background: transparent;
+            background-color: #ce9d00; 
+            color: #003366; 
+            border: 1px solid #003366;
+            font-weight: bold;
+            font-size: 0.75rem;
+            padding: 2px 8px;
             border-radius: 4px;
+            transition: all 0.2s;
         }
-        .salary-toggle-btn:hover { background: rgba(255,255,255,0.2); }
+        .salary-toggle-btn:hover {
+            background-color: #fff;
+            color: #003366;
+        }
+        .salary-val { font-weight: 700; color: #003366; }
+        .italic-note { font-style: italic; color: #6c757d; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -42,7 +48,10 @@
                     <th>Job #</th>
                     <th>DLNR Division</th>
                     <th>Location</th>
-                    <th>Salary <button id="salaryToggle" class="salary-toggle-btn">/yr</button></th>
+                    <th style="min-width: 150px;">
+                        Salary 
+                        <button id="salaryToggle" class="salary-toggle-btn">Show /mo</button>
+                    </th>
                     <th>Posted</th>
                     <th>Closing Date</th>
                     <th>Action</th>
@@ -85,8 +94,11 @@
     fetch('jobs.json')
         .then(response => response.json())
         .then(data => {
-            const table = $('#civilServiceTable').DataTable({
+            const civilTable = $('#civilServiceTable').DataTable({
                 data: data.civil_service,
+                columnDefs: [
+                    { targets: 1, orderable: false } // Disable sorting for "Job #" column
+                ],
                 columns: [
                     { data: 'title' },
                     { data: 'job_number' },
@@ -95,30 +107,28 @@
                     { 
                         data: 'yearly_salary',
                         render: function(data, type, row) {
-                            if (!data) return "See Listing";
+                            if (!data) return '<span class="italic-note">See Listing</span>';
                             let amount = viewMonthly ? (data / 12) : data;
                             let label = viewMonthly ? "/mo" : "/yr";
-                            return "$" + amount.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + label;
+                            return `<span class="salary-val">$${amount.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>${label}`;
                         }
                     },
                     { data: 'posted' },
                     { data: 'closing' },
                     { 
                         data: 'link',
-                        render: function(data) {
-                            return `<a href="${data}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`;
-                        }
+                        render: data => `<a href="${data}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`
                     }
                 ],
-                order: [[6, 'asc']]
+                order: [[6, 'asc']] // Default sort by Closing Date
             });
 
-            // Toggle Salary logic
+            // Toggle Salary Logic
             $('#salaryToggle').on('click', function(e) {
-                e.stopPropagation(); // Stop DataTables from sorting the column when button is clicked
+                e.stopPropagation(); // Stop column from sorting when button is clicked
                 viewMonthly = !viewMonthly;
-                $(this).text(viewMonthly ? '/mo' : '/yr');
-                table.rows().invalidate().draw(); // Refresh the column calculations
+                $(this).text(viewMonthly ? 'Show /yr' : 'Show /mo');
+                civilTable.rows().invalidate().draw(); 
             });
 
             // RCUH Table
