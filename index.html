@@ -26,10 +26,10 @@
         <table id="civilServiceTable" class="table table-hover w-100">
             <thead>
                 <tr>
+                    <th>Job #</th>
                     <th>Job Title</th>
-                    <th>Department</th>
-                    <th>Location</th>
                     <th>Salary</th>
+                    <th>Closing Date</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -59,53 +59,55 @@
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
-    function sourceBadge(job) {
-        return job.source === 'indeed' ? ' <span class="badge text-bg-warning">Indeed</span>' : '';
-    }
-
     function updateStatus(data) {
         const status = document.getElementById('status');
         const generated = data.generated_at_utc ? new Date(data.generated_at_utc).toLocaleString() : 'unknown';
-        const fallbackText = data.fallbacks && data.fallbacks.length ? ` Fallbacks: ${data.fallbacks.join(', ')}.` : '';
-
+        
         if (data.errors && data.errors.length) {
             status.className = 'alert alert-warning status mb-4';
-            status.textContent = `Updated ${generated}. Some sources were unavailable.${fallbackText}`;
+            status.textContent = `Updated ${generated}. Some data sources had issues.`;
         } else {
             status.className = 'alert alert-success status mb-4';
-            status.textContent = `Updated ${generated}. Data loaded successfully.${fallbackText}`;
+            status.textContent = `Updated ${generated}. Data loaded successfully.`;
         }
     }
 
     fetch('jobs.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`jobs.json request failed: ${response.status}`);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            const csTable = $('#civilServiceTable').DataTable();
-            const rcuhTable = $('#rcuhTable').DataTable();
-
-            data.civil_service.forEach(job => {
-                csTable.row.add([
-                    `${job.title}${sourceBadge(job)}`,
-                    job.dept || 'DLNR',
-                    job.location || 'See Listing',
-                    job.salary || 'See Listing',
-                    `<a href="${job.link}" target="_blank" rel="noopener" class="btn btn-sm btn-apply">View Job</a>`
-                ]).draw();
+            // Initialize Civil Service Table
+            $('#civilServiceTable').DataTable({
+                data: data.civil_service,
+                columns: [
+                    { data: 'job_number' },
+                    { data: 'title' },
+                    { data: 'salary' },
+                    { data: 'closing' },
+                    { 
+                        data: 'link',
+                        render: function(data) {
+                            return `<a href="${data}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`;
+                        }
+                    }
+                ],
+                order: [[3, 'asc']] // Sort by Closing Date (Column 4)
             });
 
-            data.rcuh.forEach(job => {
-                rcuhTable.row.add([
-                    `${job.title}${sourceBadge(job)}`,
-                    job.id || 'See Listing',
-                    job.project || 'RCUH',
-                    job.closing || 'See Listing',
-                    `<a href="${job.link}" target="_blank" rel="noopener" class="btn btn-sm btn-apply">View Job</a>`
-                ]).draw();
+            // Initialize RCUH Table
+            $('#rcuhTable').DataTable({
+                data: data.rcuh,
+                columns: [
+                    { data: 'title' },
+                    { data: 'id' },
+                    { data: 'project' },
+                    { data: 'closing' },
+                    { 
+                        data: 'link',
+                        render: function(data) {
+                            return `<a href="${data}" target="_blank" class="btn btn-sm btn-apply">View Job</a>`;
+                        }
+                    }
+                ]
             });
 
             updateStatus(data);
@@ -113,7 +115,7 @@
         .catch(error => {
             const status = document.getElementById('status');
             status.className = 'alert alert-danger status mb-4';
-            status.textContent = `Unable to load jobs.json: ${error.message}`;
+            status.textContent = `Error loading jobs.json: ${error.message}`;
         });
 </script>
 </body>
