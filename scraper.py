@@ -28,15 +28,21 @@ def main() -> int:
         response.raise_for_status()
         root = ElementTree.fromstring(response.text)
 
-        for item in root.findall("./channel/item"):
+for item in root.findall("./channel/item"):
+            # Get all text from the job entry to search through
             title = (item.findtext("title") or "").strip()
             link = (item.findtext("link") or "").strip()
-
+            desc = (item.findtext("description") or "").lower()
+            cat = (item.findtext("category") or "").lower()
+            
             if not title or not link:
                 continue
 
-            title_lower = title.lower()
-            if "land" not in title_lower and "natural" not in title_lower:
+            # Broaden the search to look in Title, Description, and Category
+            search_text = f"{title.lower()} {desc} {cat}"
+            keywords = ["land & natural resources", "dlnr", "land and natural resources"]
+            
+            if not any(word in search_text for word in keywords):
                 continue
 
             payload["civil_service"].append(
