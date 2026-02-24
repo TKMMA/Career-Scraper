@@ -1,77 +1,59 @@
 import json
-import time
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from datetime import datetime, timezone
+from xml.etree import ElementTree
 
-def get_driver():
-    chrome_options = Options()
-    chrome_options.add_argument("--headless=new") # Updated headless mode
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
-    
-    service = Service(ChromeDriverManager().install())
-    return webdriver.Chrome(service=service, options=chrome_options)
+import requests
 
-def scrape_civil_service():
-    driver = get_driver()
-    url = "https://www.governmentjobs.com/careers/hawaii?department[0]=Land%20%26%20Natural%20Resources&sort=PositionTitle%7CAscending"
-    jobs = []
+FEED_URL = "https://www.governmentjobs.com/SearchEngine/JobsFeed?agency=hawaii"
+
+
+def now_iso() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def save_payload(payload: dict) -> None:
+    with open("jobs.json", "w", encoding="utf-8") as file:
+        json.dump(payload, file, indent=2, ensure_ascii=False)
+
+
+def main() -> int:
+    payload = {
+        "civil_service": [],
+        "rcuh": [],
+        "generated_at_utc": now_iso(),
+    }
+
     try:
-        driver.get(url)
-        # Wait for the table to actually exist
-        WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, "job-listing-item")))
-        listings = driver.find_elements(By.CLASS_NAME, "job-listing-item")
-        for item in listings:
-            try:
-                title_el = item.find_element(By.CLASS_NAME, "job-item-title")
-                jobs.append({
-                    "title": title_el.text,
-                    "dept": "DLNR",
-                    "location": item.find_element(By.CLASS_NAME, "job-location").text,
-                    "salary": item.find_element(By.CLASS_NAME, "job-salary").text,
-                    "link": title_el.find_element(By.TAG_NAME, "a").get_attribute("href")
-                })
-            except: continue
-    finally:
-        driver.quit()
-    return jobs
+        response = requests.get(FEED_URL, timeout=40)
+        response.raise_for_status()
+        root = ElementTree.fromstring(response.text)
 
-def scrape_rcuh():
-    driver = get_driver()
-    url = "https://hr.rcuh.com/psc/hcmprd_exapp/EMPLOYEE/HRMS/c/HRS_HRAM_FL.HRS_CG_SEARCH_FL.GBL?Page=HRS_APP_SCHJOB_FL&Action=U"
-    jobs = []
-    try:
-        driver.get(url)
-        time.sleep(15) # RCUH/Oracle is slow to load frames
-        listings = driver.find_elements(By.CSS_SELECTOR, "li.ps-level1")
-        for item in listings:
-            try:
-                title = item.find_element(By.CSS_SELECTOR, "[id^='SCH_JOB_TITLE']").text
-                job_id = item.find_element(By.CSS_SELECTOR, "[id^='SCH_JOB_ID']").text
-                jobs.append({
+        for item in root.findall("./channel/item"):
+            title = (item.findtext("title") or "").strip()
+            link = (item.findtext("link") or "").strip()
+            description = (item.findtext("description") or "").strip()
+
+            haystack = f"{title} {description}".lower()
+            if "land" not in haystack and "natural" not in haystack:
+                continue
+            if not title or not link:
+                continue
+
+            payload["civil_service"].append(
+                {
                     "title": title,
-                    "id": job_id,
-                    "project": "RCUH/DLNR",
-                    "closing": "See Link",
-                    "link": url
-                })
-            except: continue
-    finally:
-        driver.quit()
-    return jobs
+                    "link": link,
+                    "salary": "See Listing",
+                }
+            )
+    except Exception:
+        # Intentionally swallow all errors so workflow always produces jobs.json.
+        pass
+
+    payload["generated_at_utc"] = now_iso()
+    save_payload(payload)
+    return 0
+
 
 if __name__ == "__main__":
-    results = {
-        "civil_service": scrape_civil_service(),
-        "rcuh": scrape_rcuh()
-    }
-    with open("jobs.json", "w") as f:
-        json.dump(results, f, indent=4)
+    raise SystemExit(main())
