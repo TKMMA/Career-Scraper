@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Boating And Ocean Recreation Harbor Agent II",
+      "job_number": "26-0091",
+      "division": "DLNR",
+      "location": "Maui",
+      "yearly_salary": 48648.0,
+      "posted": "Fri, 27 Feb 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5250626"
+    },
+    {
       "title": "Natural Resources Management Specialist III And IV",
       "job_number": "26-0017",
       "division": "DLNR",
@@ -69,16 +79,6 @@
       "posted": "Thu, 12 Feb 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093678"
-    },
-    {
-      "title": "Park Interpretive Technician",
-      "job_number": "24-0129",
-      "division": "DLNR",
-      "location": "Hanalei, Kauai",
-      "yearly_salary": 46800.0,
-      "posted": "Tue, 10 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4413609"
     },
     {
       "title": "Land Agent II And III",
@@ -202,5 +202,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-02-27T19:48:35.009408+00:00"
+  "generated_at_utc": "2026-02-28T18:59:24.477907+00:00"
 }
