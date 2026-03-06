@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Construction & Maintenance Superintendent IV",
+      "job_number": "25-0381",
+      "division": "DLNR",
+      "location": "Halawa To Kalihi, Oahu",
+      "yearly_salary": 66492.0,
+      "posted": "Fri, 06 Mar 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093686"
+    },
+    {
       "title": "Boating And Ocean Recreation Harbor Agent II",
       "job_number": "26-0091",
       "division": "DLNR",
@@ -89,16 +99,6 @@
       "posted": "Tue, 10 Feb 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4916396"
-    },
-    {
-      "title": "Construction & Maintenance Superintendent IV",
-      "job_number": "25-0381",
-      "division": "DLNR",
-      "location": "Halawa To Kalihi, Oahu",
-      "yearly_salary": 66492.0,
-      "posted": "Tue, 10 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093686"
     },
     {
       "title": "Forestry & Wildlife Technician IV",
@@ -202,5 +202,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-03-05T20:04:29.683770+00:00"
+  "generated_at_utc": "2026-03-06T19:49:23.718434+00:00"
 }
