@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Conveyancing Supervisor",
+      "job_number": "DLNR-2024-0004",
+      "division": "Bureau Of Conveyances",
+      "location": "Downtown, Oahu",
+      "yearly_salary": 72264.0,
+      "posted": "Mon, 09 Mar 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4553832"
+    },
+    {
       "title": "Construction & Maintenance Superintendent IV",
       "job_number": "25-0381",
       "division": "DLNR",
@@ -189,18 +199,8 @@
       "posted": "Wed, 02 Jul 2025",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4750455"
-    },
-    {
-      "title": "Conveyancing Supervisor",
-      "job_number": "DLNR-2024-0004",
-      "division": "Bureau Of Conveyances",
-      "location": "Downtown, Oahu",
-      "yearly_salary": 72264.0,
-      "posted": "Wed, 02 Jul 2025",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4553832"
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-03-08T19:02:19.459464+00:00"
+  "generated_at_utc": "2026-03-09T19:54:06.226388+00:00"
 }
