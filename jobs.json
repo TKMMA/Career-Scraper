@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Boating And Ocean Recreation Harbor Agent II",
+      "job_number": "26-0119",
+      "division": "DLNR",
+      "location": "Oahu",
+      "yearly_salary": 48648.0,
+      "posted": "Mon, 09 Mar 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5262686"
+    },
+    {
       "title": "Conveyancing Supervisor",
       "job_number": "DLNR-2024-0004",
       "division": "Bureau Of Conveyances",
@@ -202,5 +212,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-03-10T19:53:36.628804+00:00"
+  "generated_at_utc": "2026-03-11T19:53:29.569609+00:00"
 }
