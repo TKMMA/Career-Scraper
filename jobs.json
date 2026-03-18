@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Forestry & Wildlife Technician IV",
+      "job_number": "OHHI-26001",
+      "division": "DLNR",
+      "location": "Maui",
+      "yearly_salary": 46800.0,
+      "posted": "Tue, 17 Mar 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5184996"
+    },
+    {
       "title": "Boating And Ocean Recreation Harbor Agent II",
       "job_number": "26-0119",
       "division": "DLNR",
@@ -121,16 +131,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4916396"
     },
     {
-      "title": "Forestry & Wildlife Technician IV",
-      "job_number": "OHHI-26001",
-      "division": "DLNR",
-      "location": "Maui",
-      "yearly_salary": 46800.0,
-      "posted": "Tue, 10 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5184996"
-    },
-    {
       "title": "Forestry & Wildlife Technician III And IV",
       "job_number": "24-0568",
       "division": "DLNR",
@@ -212,5 +212,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-03-17T20:01:37.316869+00:00"
+  "generated_at_utc": "2026-03-18T19:56:02.185072+00:00"
 }
