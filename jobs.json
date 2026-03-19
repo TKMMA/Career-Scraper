@@ -1,6 +1,26 @@
 {
   "civil_service": [
     {
+      "title": "Natural Resources Management Specialist III And IV",
+      "job_number": "26-0123",
+      "division": "DLNR",
+      "location": "Lihue, Kauai",
+      "yearly_salary": 59532.0,
+      "posted": "Wed, 18 Mar 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5269672"
+    },
+    {
+      "title": "Natural Resources Management Specialist II",
+      "job_number": "26-0124",
+      "division": "DLNR",
+      "location": "Lihue, Kauai",
+      "yearly_salary": 55080.0,
+      "posted": "Wed, 18 Mar 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5269791"
+    },
+    {
       "title": "Forestry & Wildlife Technician IV",
       "job_number": "OHHI-26001",
       "division": "DLNR",
@@ -212,5 +232,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-03-18T19:56:02.185072+00:00"
+  "generated_at_utc": "2026-03-19T19:56:16.462767+00:00"
 }
