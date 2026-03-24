@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Forestry & Wildlife Technician IV",
+      "job_number": "26-0130",
+      "division": "DLNR",
+      "location": "Kamuela/kohala/waikoloa",
+      "yearly_salary": 46800.0,
+      "posted": "Mon, 23 Mar 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5274494"
+    },
+    {
       "title": "Natural Resources Management Specialist III And IV",
       "job_number": "26-0123",
       "division": "DLNR",
@@ -19,16 +29,6 @@
       "posted": "Wed, 18 Mar 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5269791"
-    },
-    {
-      "title": "Forestry & Wildlife Technician IV",
-      "job_number": "OHHI-26001",
-      "division": "DLNR",
-      "location": "Maui",
-      "yearly_salary": 46800.0,
-      "posted": "Tue, 17 Mar 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5184996"
     },
     {
       "title": "Boating And Ocean Recreation Harbor Agent II",
@@ -232,5 +232,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-03-23T18:58:46.167173+00:00"
+  "generated_at_utc": "2026-03-24T19:06:02.851265+00:00"
 }
