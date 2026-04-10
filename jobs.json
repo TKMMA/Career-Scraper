@@ -1,6 +1,26 @@
 {
   "civil_service": [
     {
+      "title": "Forester VI (outdoor Recreation Manager)",
+      "job_number": "DLNR-2025-0004",
+      "division": "Forestry And Wildlife",
+      "location": "Oahu",
+      "yearly_salary": 76788.0,
+      "posted": "Thu, 09 Apr 2026",
+      "closing": "Fri, 10 Apr 2026 17:30:00:0",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4869639"
+    },
+    {
+      "title": "Park Caretaker I",
+      "job_number": "OHHI-26029",
+      "division": "DLNR",
+      "location": "Waimea, Kauai (ohhi)",
+      "yearly_salary": null,
+      "posted": "Thu, 09 Apr 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5301359"
+    },
+    {
       "title": "Construction & Maintenance Superintendent IV",
       "job_number": "25-0381",
       "division": "DLNR",
@@ -191,16 +211,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5060650"
     },
     {
-      "title": "Forester VI (outdoor Recreation Manager)",
-      "job_number": "DLNR-2025-0004",
-      "division": "Forestry And Wildlife",
-      "location": "Oahu",
-      "yearly_salary": 76788.0,
-      "posted": "Thu, 17 Jul 2025",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4869639"
-    },
-    {
       "title": "Engineering Program Administrator",
       "job_number": "DLNR-2024-0007",
       "division": "Engineering",
@@ -212,5 +222,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-04-09T19:10:52.613477+00:00"
+  "generated_at_utc": "2026-04-10T18:57:29.159024+00:00"
 }
