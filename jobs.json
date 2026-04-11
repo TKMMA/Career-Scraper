@@ -1,16 +1,6 @@
 {
   "civil_service": [
     {
-      "title": "Forester VI (outdoor Recreation Manager)",
-      "job_number": "DLNR-2025-0004",
-      "division": "Forestry And Wildlife",
-      "location": "Oahu",
-      "yearly_salary": 76788.0,
-      "posted": "Thu, 09 Apr 2026",
-      "closing": "Fri, 10 Apr 2026 17:30:00:0",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4869639"
-    },
-    {
       "title": "Park Caretaker I",
       "job_number": "OHHI-26029",
       "division": "DLNR",
@@ -19,6 +9,16 @@
       "posted": "Thu, 09 Apr 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5301359"
+    },
+    {
+      "title": "Human Resources Specialist IV (recruitment, Examination And Classification)",
+      "job_number": "26-0156",
+      "division": "DLNR",
+      "location": "Downtown",
+      "yearly_salary": 64428.0,
+      "posted": "Wed, 08 Apr 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5299773"
     },
     {
       "title": "Construction & Maintenance Superintendent IV",
@@ -222,5 +222,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-04-10T18:57:29.159024+00:00"
+  "generated_at_utc": "2026-04-11T18:49:56.202789+00:00"
 }
