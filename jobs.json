@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Construction & Maintenance Superintendent IV",
+      "job_number": "25-0381",
+      "division": "DLNR",
+      "location": "Halawa To Kalihi, Oahu",
+      "yearly_salary": 66492.0,
+      "posted": "Fri, 24 Apr 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093686"
+    },
+    {
       "title": "Abstracting Assistant IV",
       "job_number": "25-0380",
       "division": "DLNR",
@@ -9,16 +19,6 @@
       "posted": "Tue, 21 Apr 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093678"
-    },
-    {
-      "title": "Construction & Maintenance Superintendent IV",
-      "job_number": "25-0381",
-      "division": "DLNR",
-      "location": "Halawa To Kalihi, Oahu",
-      "yearly_salary": 66492.0,
-      "posted": "Mon, 13 Apr 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093686"
     },
     {
       "title": "Park Caretaker I",
@@ -222,5 +222,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-04-24T18:56:35.884346+00:00"
+  "generated_at_utc": "2026-04-25T18:56:48.594884+00:00"
 }
