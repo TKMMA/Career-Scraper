@@ -1,16 +1,6 @@
 {
   "civil_service": [
     {
-      "title": "Construction & Maintenance Superintendent IV",
-      "job_number": "25-0381",
-      "division": "DLNR",
-      "location": "Halawa To Kalihi, Oahu",
-      "yearly_salary": 66492.0,
-      "posted": "Fri, 24 Apr 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093686"
-    },
-    {
       "title": "Abstracting Assistant IV",
       "job_number": "25-0380",
       "division": "DLNR",
@@ -222,5 +212,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-05-01T19:15:39.886984+00:00"
+  "generated_at_utc": "2026-05-02T19:02:44.153047+00:00"
 }
