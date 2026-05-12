@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Natural Resources Management Specialist III And IV",
+      "job_number": "26-0017",
+      "division": "DLNR",
+      "location": "Temporary",
+      "yearly_salary": 59532.0,
+      "posted": "Mon, 11 May 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5185068"
+    },
+    {
       "title": "Abstracting Assistant IV",
       "job_number": "25-0380",
       "division": "DLNR",
@@ -69,16 +79,6 @@
       "posted": "Fri, 27 Feb 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5250626"
-    },
-    {
-      "title": "Natural Resources Management Specialist III And IV",
-      "job_number": "26-0017",
-      "division": "DLNR",
-      "location": "Temporary",
-      "yearly_salary": 59532.0,
-      "posted": "Fri, 13 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5185068"
     },
     {
       "title": "Park Caretaker II",
@@ -212,5 +212,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-05-11T19:50:37.729003+00:00"
+  "generated_at_utc": "2026-05-12T19:55:55.824127+00:00"
 }
