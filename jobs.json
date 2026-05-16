@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Wildlife Biologist Ii/iii/iv",
+      "job_number": "DLNR-2026-0001",
+      "division": "Forestry And Wildlife",
+      "location": "Oahu",
+      "yearly_salary": null,
+      "posted": "Fri, 15 May 2026",
+      "closing": "Fri, 29 May 2026 23:59:00:0",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5318191"
+    },
+    {
       "title": "Natural Resources Management Specialist III And IV",
       "job_number": "26-0017",
       "division": "DLNR",
@@ -202,5 +212,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-05-15T19:41:24.749733+00:00"
+  "generated_at_utc": "2026-05-16T19:07:51.630903+00:00"
 }
