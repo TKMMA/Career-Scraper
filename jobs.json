@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Forestry & Wildlife Worker II",
+      "job_number": "OHHI-26051",
+      "division": "DLNR",
+      "location": "Maui (ohhi)",
+      "yearly_salary": null,
+      "posted": "Tue, 09 Jun 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5366444"
+    },
+    {
       "title": "Natural Resources Management Specialist III And IV",
       "job_number": "26-0017",
       "division": "DLNR",
@@ -172,5 +182,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-06-11T20:24:11.056864+00:00"
+  "generated_at_utc": "2026-06-12T20:12:49.951708+00:00"
 }
