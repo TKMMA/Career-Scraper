@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "General Professional IV (harbor, Inspections & Audits)",
+      "job_number": "25-0220",
+      "division": "DLNR",
+      "location": "Maalaea, Maui",
+      "yearly_salary": 64428.0,
+      "posted": "Thu, 18 Jun 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4955550"
+    },
+    {
       "title": "Forestry & Wildlife Technician IV",
       "job_number": "OHHI-26052",
       "division": "DLNR",
@@ -101,16 +111,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5197386"
     },
     {
-      "title": "General Professional IV (harbor, Inspections & Audits)",
-      "job_number": "25-0220",
-      "division": "DLNR",
-      "location": "Maalaea, Maui",
-      "yearly_salary": 64428.0,
-      "posted": "Thu, 12 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4955550"
-    },
-    {
       "title": "Abstractor IX",
       "job_number": "24-0066",
       "division": "DLNR",
@@ -182,5 +182,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-06-17T20:13:44.470180+00:00"
+  "generated_at_utc": "2026-06-18T20:27:43.355473+00:00"
 }
