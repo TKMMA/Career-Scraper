@@ -6,9 +6,19 @@
       "division": "DLNR",
       "location": "Maalaea, Maui",
       "yearly_salary": 64428.0,
-      "posted": "Thu, 18 Jun 2026",
+      "posted": "Mon, 22 Jun 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4955550"
+    },
+    {
+      "title": "Forestry & Wildlife Worker II",
+      "job_number": "26-0244",
+      "division": "DLNR",
+      "location": "Kamuela / Kohala / Waikoloa, Hawaii Island",
+      "yearly_salary": null,
+      "posted": "Wed, 17 Jun 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5372931"
     },
     {
       "title": "Forestry & Wildlife Technician IV",
@@ -172,5 +182,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-06-21T19:44:38.892140+00:00"
+  "generated_at_utc": "2026-06-22T20:50:18.248691+00:00"
 }
