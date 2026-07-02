@@ -1,14 +1,124 @@
 {
   "civil_service": [
     {
+      "title": "Land Agent II And III",
+      "job_number": "25-0121",
+      "division": "DLNR",
+      "location": "Lihue, Kauai",
+      "yearly_salary": 56700.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4916396"
+    },
+    {
+      "title": "Human Resources Specialist IV (recruitment, Examination And Classification)",
+      "job_number": "26-0156",
+      "division": "DLNR",
+      "location": "Downtown",
+      "yearly_salary": 68160.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5299773"
+    },
+    {
+      "title": "Education Specialist (hunter & Conservation Resources) III",
+      "job_number": "22-0636",
+      "division": "DLNR",
+      "location": "Pearl City, Oahu",
+      "yearly_salary": 61284.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/3725829"
+    },
+    {
       "title": "General Professional IV (harbor, Inspections & Audits)",
       "job_number": "25-0220",
       "division": "DLNR",
       "location": "Maalaea, Maui",
-      "yearly_salary": 64428.0,
-      "posted": "Mon, 22 Jun 2026",
+      "yearly_salary": 68160.0,
+      "posted": "Wed, 01 Jul 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4955550"
+    },
+    {
+      "title": "Park Maintenance Supervisor II",
+      "job_number": "DLNR-2025-0009",
+      "division": "State Parks",
+      "location": "Kokee, Kauai",
+      "yearly_salary": null,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5060650"
+    },
+    {
+      "title": "Park Caretaker II",
+      "job_number": "26-0031",
+      "division": "DLNR",
+      "location": "Oahu",
+      "yearly_salary": null,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5197386"
+    },
+    {
+      "title": "Park Caretaker I",
+      "job_number": "OHHI-26029",
+      "division": "DLNR",
+      "location": "Waimea, Kauai (ohhi)",
+      "yearly_salary": null,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5301359"
+    },
+    {
+      "title": "Conveyancing Supervisor",
+      "job_number": "DLNR-2024-0004",
+      "division": "Bureau Of Conveyances",
+      "location": "Downtown, Oahu",
+      "yearly_salary": 72264.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4553832"
+    },
+    {
+      "title": "Boating And Ocean Recreation Manager I",
+      "job_number": "DLNR-2025-0010",
+      "division": "Boating And Ocean Recreation",
+      "location": "Kailua",
+      "yearly_salary": 72516.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5060663"
+    },
+    {
+      "title": "Boating And Ocean Recreation Manager I",
+      "job_number": "DLNR-2025-0011",
+      "division": "Boating And Ocean Recreation",
+      "location": "Maalaea, Maui",
+      "yearly_salary": 72516.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5062389"
+    },
+    {
+      "title": "Abstractor IX",
+      "job_number": "24-0066",
+      "division": "DLNR",
+      "location": "Downtown, Oahu",
+      "yearly_salary": 66492.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4378340"
+    },
+    {
+      "title": "Forestry & Wildlife Technician IV",
+      "job_number": "26-0130",
+      "division": "DLNR",
+      "location": "Kamuela/kohala/waikoloa",
+      "yearly_salary": 46800.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5274494"
     },
     {
       "title": "Abstracting Assistant IV",
@@ -21,36 +131,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093678"
     },
     {
-      "title": "Park Caretaker I",
-      "job_number": "OHHI-26029",
-      "division": "DLNR",
-      "location": "Waimea, Kauai (ohhi)",
-      "yearly_salary": null,
-      "posted": "Thu, 09 Apr 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5301359"
-    },
-    {
-      "title": "Human Resources Specialist IV (recruitment, Examination And Classification)",
-      "job_number": "26-0156",
-      "division": "DLNR",
-      "location": "Downtown",
-      "yearly_salary": 64428.0,
-      "posted": "Wed, 08 Apr 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5299773"
-    },
-    {
-      "title": "Forestry & Wildlife Technician IV",
-      "job_number": "26-0130",
-      "division": "DLNR",
-      "location": "Kamuela/kohala/waikoloa",
-      "yearly_salary": 46800.0,
-      "posted": "Mon, 23 Mar 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5274494"
-    },
-    {
       "title": "Boating And Ocean Recreation Harbor Agent II",
       "job_number": "26-0119",
       "division": "DLNR",
@@ -59,16 +139,6 @@
       "posted": "Mon, 09 Mar 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5262686"
-    },
-    {
-      "title": "Conveyancing Supervisor",
-      "job_number": "DLNR-2024-0004",
-      "division": "Bureau Of Conveyances",
-      "location": "Downtown, Oahu",
-      "yearly_salary": 72264.0,
-      "posted": "Mon, 09 Mar 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4553832"
     },
     {
       "title": "Boating And Ocean Recreation Harbor Agent II",
@@ -81,26 +151,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5250626"
     },
     {
-      "title": "Park Caretaker II",
-      "job_number": "26-0031",
-      "division": "DLNR",
-      "location": "Oahu",
-      "yearly_salary": null,
-      "posted": "Fri, 13 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5197386"
-    },
-    {
-      "title": "Abstractor IX",
-      "job_number": "24-0066",
-      "division": "DLNR",
-      "location": "Downtown, Oahu",
-      "yearly_salary": 66492.0,
-      "posted": "Thu, 12 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4378340"
-    },
-    {
       "title": "Abstracting Assistant V",
       "job_number": "23-0385",
       "division": "DLNR",
@@ -109,58 +159,8 @@
       "posted": "Thu, 12 Feb 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4092249"
-    },
-    {
-      "title": "Land Agent II And III",
-      "job_number": "25-0121",
-      "division": "DLNR",
-      "location": "Lihue, Kauai",
-      "yearly_salary": 55080.0,
-      "posted": "Tue, 10 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4916396"
-    },
-    {
-      "title": "Education Specialist (hunter & Conservation Resources) III",
-      "job_number": "22-0636",
-      "division": "DLNR",
-      "location": "Pearl City, Oahu",
-      "yearly_salary": 59532.0,
-      "posted": "Tue, 10 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/3725829"
-    },
-    {
-      "title": "Boating And Ocean Recreation Manager I",
-      "job_number": "DLNR-2025-0011",
-      "division": "Boating And Ocean Recreation",
-      "location": "Maalaea, Maui",
-      "yearly_salary": 72516.0,
-      "posted": "Tue, 14 Oct 2025",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5062389"
-    },
-    {
-      "title": "Boating And Ocean Recreation Manager I",
-      "job_number": "DLNR-2025-0010",
-      "division": "Boating And Ocean Recreation",
-      "location": "Kailua",
-      "yearly_salary": 72516.0,
-      "posted": "Tue, 14 Oct 2025",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5060663"
-    },
-    {
-      "title": "Park Maintenance Supervisor II",
-      "job_number": "DLNR-2025-0009",
-      "division": "State Parks",
-      "location": "Kokee, Kauai",
-      "yearly_salary": null,
-      "posted": "Thu, 11 Sep 2025",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5060650"
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-07-01T19:58:24.472211+00:00"
+  "generated_at_utc": "2026-07-02T19:26:42.415867+00:00"
 }
