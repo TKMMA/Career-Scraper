@@ -1,6 +1,36 @@
 {
   "civil_service": [
     {
+      "title": "Park Caretaker I",
+      "job_number": "OHHI-26057",
+      "division": "DLNR",
+      "location": "Kamuela/ Kohala/ Waikoloa, Hawaii Island (ohhi)",
+      "yearly_salary": null,
+      "posted": "Fri, 10 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5405107"
+    },
+    {
+      "title": "Human Resources Specialist IV (recruitment, Examination And Classification)",
+      "job_number": "26-0156",
+      "division": "DLNR",
+      "location": "Downtown",
+      "yearly_salary": 66444.0,
+      "posted": "Fri, 10 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5299773"
+    },
+    {
+      "title": "General Professional IV (harbor, Inspections & Audits)",
+      "job_number": "25-0220",
+      "division": "DLNR",
+      "location": "Maalaea, Maui",
+      "yearly_salary": 66324.0,
+      "posted": "Fri, 10 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4955550"
+    },
+    {
       "title": "Land Agent II And III",
       "job_number": "25-0121",
       "division": "DLNR",
@@ -11,16 +41,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4916396"
     },
     {
-      "title": "Human Resources Specialist IV (recruitment, Examination And Classification)",
-      "job_number": "26-0156",
-      "division": "DLNR",
-      "location": "Downtown",
-      "yearly_salary": 68160.0,
-      "posted": "Wed, 01 Jul 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5299773"
-    },
-    {
       "title": "Education Specialist (hunter & Conservation Resources) III",
       "job_number": "22-0636",
       "division": "DLNR",
@@ -29,16 +49,6 @@
       "posted": "Wed, 01 Jul 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/3725829"
-    },
-    {
-      "title": "General Professional IV (harbor, Inspections & Audits)",
-      "job_number": "25-0220",
-      "division": "DLNR",
-      "location": "Maalaea, Maui",
-      "yearly_salary": 68160.0,
-      "posted": "Wed, 01 Jul 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4955550"
     },
     {
       "title": "Park Maintenance Supervisor II",
@@ -162,5 +172,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-07-10T19:35:12.662748+00:00"
+  "generated_at_utc": "2026-07-11T19:06:17.361742+00:00"
 }
