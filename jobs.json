@@ -1,16 +1,6 @@
 {
   "civil_service": [
     {
-      "title": "Park Caretaker I",
-      "job_number": "OHHI-26057",
-      "division": "DLNR",
-      "location": "Kamuela/ Kohala/ Waikoloa, Hawaii Island (ohhi)",
-      "yearly_salary": null,
-      "posted": "Fri, 10 Jul 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5405107"
-    },
-    {
       "title": "Human Resources Specialist IV (recruitment, Examination And Classification)",
       "job_number": "26-0156",
       "division": "DLNR",
@@ -162,5 +152,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-07-21T19:25:23.801417+00:00"
+  "generated_at_utc": "2026-07-22T19:22:46.271552+00:00"
 }
