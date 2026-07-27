@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Education Specialist V (aquatic Resources)",
+      "job_number": "OHHI-26061",
+      "division": "DLNR",
+      "location": "Oahu",
+      "yearly_salary": 90816.0,
+      "posted": "Fri, 24 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5420284"
+    },
+    {
       "title": "Human Resources Specialist IV (recruitment, Examination And Classification)",
       "job_number": "26-0156",
       "division": "DLNR",
@@ -152,5 +162,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-07-26T19:13:22.382620+00:00"
+  "generated_at_utc": "2026-07-27T19:35:11.724440+00:00"
 }
