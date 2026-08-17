@@ -1,16 +1,6 @@
 {
   "civil_service": [
     {
-      "title": "State Parks Assistant Administrator",
-      "job_number": "26-0336",
-      "division": "DLNR",
-      "location": "Downtown, Oahu",
-      "yearly_salary": 129876.0,
-      "posted": "Fri, 14 Aug 2026",
-      "closing": "Mon, 24 Aug 2026 23:59:00:0",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5448462"
-    },
-    {
       "title": "Human Resources Specialist IV (recruitment, Examination And Classification)",
       "job_number": "26-0156",
       "division": "DLNR",
@@ -162,5 +152,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-08-16T18:30:25.466871+00:00"
+  "generated_at_utc": "2026-08-17T18:40:21.222071+00:00"
 }
