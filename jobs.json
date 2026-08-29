@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Equipment Operator II",
+      "job_number": "26-0323",
+      "division": "DLNR",
+      "location": "Halawa To Kalihi, Oahu",
+      "yearly_salary": null,
+      "posted": "Tue, 25 Aug 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5445041"
+    },
+    {
       "title": "General Professional IV (harbor, Inspections & Audits)",
       "job_number": "25-0220",
       "division": "DLNR",
@@ -142,5 +152,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-08-28T02:04:10.887246+00:00"
+  "generated_at_utc": "2026-08-29T01:30:34.562952+00:00"
 }
