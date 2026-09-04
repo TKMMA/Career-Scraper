@@ -1,16 +1,6 @@
 {
   "civil_service": [
     {
-      "title": "Wildlife Biologist Ii/iii/iv",
-      "job_number": "DLNR-2026-0001",
-      "division": "Forestry And Wildlife",
-      "location": "Oahu",
-      "yearly_salary": null,
-      "posted": "Tue, 01 Sep 2026",
-      "closing": "Mon, 14 Sep 2026 23:59:00:0",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5318191"
-    },
-    {
       "title": "Equipment Operator II",
       "job_number": "26-0323",
       "division": "DLNR",
@@ -162,5 +152,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-09-03T20:39:06.959844+00:00"
+  "generated_at_utc": "2026-09-04T20:25:38.185689+00:00"
 }
