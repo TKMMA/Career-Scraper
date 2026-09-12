@@ -1,6 +1,26 @@
 {
   "civil_service": [
     {
+      "title": "Equipment Operator II",
+      "job_number": "26-0323",
+      "division": "DLNR",
+      "location": "Halawa To Kalihi, Oahu",
+      "yearly_salary": null,
+      "posted": "Fri, 11 Sep 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5445041"
+    },
+    {
+      "title": "Forestry & Wildlife Worker III",
+      "job_number": "26-0351",
+      "division": "DLNR",
+      "location": "Manoa To Kahala, Oahu",
+      "yearly_salary": null,
+      "posted": "Fri, 11 Sep 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5476988"
+    },
+    {
       "title": "Forestry & Wildlife Technician IV",
       "job_number": "26-0346",
       "division": "DLNR",
@@ -9,16 +29,6 @@
       "posted": "Thu, 03 Sep 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5459549"
-    },
-    {
-      "title": "Equipment Operator II",
-      "job_number": "26-0323",
-      "division": "DLNR",
-      "location": "Halawa To Kalihi, Oahu",
-      "yearly_salary": null,
-      "posted": "Tue, 25 Aug 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5445041"
     },
     {
       "title": "General Professional IV (harbor, Inspections & Audits)",
@@ -152,5 +162,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-09-11T20:37:51.468356+00:00"
+  "generated_at_utc": "2026-09-12T20:17:58.795976+00:00"
 }
