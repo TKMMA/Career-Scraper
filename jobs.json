@@ -1,6 +1,26 @@
 {
   "civil_service": [
     {
+      "title": "Forestry & Wildlife Worker II",
+      "job_number": "OHHI-26073",
+      "division": "DLNR",
+      "location": "Maui (ohhi)",
+      "yearly_salary": null,
+      "posted": "Mon, 21 Sep 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5485031"
+    },
+    {
+      "title": "Park Caretaker I",
+      "job_number": "OHHI-26071",
+      "division": "DLNR",
+      "location": "Kapaa, Kauai (ohhi)",
+      "yearly_salary": null,
+      "posted": "Thu, 17 Sep 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5485244"
+    },
+    {
       "title": "Equipment Operator II",
       "job_number": "26-0323",
       "division": "DLNR",
@@ -19,16 +39,6 @@
       "posted": "Fri, 11 Sep 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5476988"
-    },
-    {
-      "title": "Forestry & Wildlife Technician IV",
-      "job_number": "26-0346",
-      "division": "DLNR",
-      "location": "Hilo",
-      "yearly_salary": 46800.0,
-      "posted": "Thu, 03 Sep 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5459549"
     },
     {
       "title": "General Professional IV (harbor, Inspections & Audits)",
@@ -91,26 +101,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4553832"
     },
     {
-      "title": "Boating And Ocean Recreation Manager I",
-      "job_number": "DLNR-2025-0010",
-      "division": "Boating And Ocean Recreation",
-      "location": "Kailua",
-      "yearly_salary": 72516.0,
-      "posted": "Wed, 01 Jul 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5060663"
-    },
-    {
-      "title": "Boating And Ocean Recreation Manager I",
-      "job_number": "DLNR-2025-0011",
-      "division": "Boating And Ocean Recreation",
-      "location": "Maalaea, Maui",
-      "yearly_salary": 72516.0,
-      "posted": "Wed, 01 Jul 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5062389"
-    },
-    {
       "title": "Abstractor IX",
       "job_number": "24-0066",
       "division": "DLNR",
@@ -162,5 +152,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-09-21T21:46:59.237178+00:00"
+  "generated_at_utc": "2026-09-22T20:59:16.653198+00:00"
 }
