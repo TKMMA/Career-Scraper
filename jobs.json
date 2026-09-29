@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Forestry & Wildlife Worker II",
+      "job_number": "26-0387",
+      "division": "DLNR",
+      "location": "Hilo, Hawaii Island",
+      "yearly_salary": null,
+      "posted": "Mon, 28 Sep 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5494560"
+    },
+    {
       "title": "Equipment Operator II",
       "job_number": "26-0323",
       "division": "DLNR",
@@ -9,16 +19,6 @@
       "posted": "Fri, 25 Sep 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5445041"
-    },
-    {
-      "title": "Forestry & Wildlife Worker II",
-      "job_number": "OHHI-26073",
-      "division": "DLNR",
-      "location": "Maui (ohhi)",
-      "yearly_salary": null,
-      "posted": "Mon, 21 Sep 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5485031"
     },
     {
       "title": "Park Caretaker I",
@@ -142,5 +142,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-09-28T23:00:36.719265+00:00"
+  "generated_at_utc": "2026-09-29T21:58:53.241815+00:00"
 }
