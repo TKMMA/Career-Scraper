@@ -1,16 +1,6 @@
 {
   "civil_service": [
     {
-      "title": "Forestry & Wildlife Worker II",
-      "job_number": "26-0387",
-      "division": "DLNR",
-      "location": "Hilo, Hawaii Island",
-      "yearly_salary": null,
-      "posted": "Mon, 28 Sep 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5494560"
-    },
-    {
       "title": "Equipment Operator II",
       "job_number": "26-0323",
       "division": "DLNR",
@@ -121,16 +111,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093678"
     },
     {
-      "title": "Boating And Ocean Recreation Harbor Agent II",
-      "job_number": "26-0119",
-      "division": "DLNR",
-      "location": "Oahu",
-      "yearly_salary": 48648.0,
-      "posted": "Mon, 09 Mar 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5262686"
-    },
-    {
       "title": "Abstracting Assistant V",
       "job_number": "23-0385",
       "division": "DLNR",
@@ -142,5 +122,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-09-30T21:58:21.006435+00:00"
+  "generated_at_utc": "2026-10-01T22:26:04.460809+00:00"
 }
