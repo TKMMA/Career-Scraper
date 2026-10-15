@@ -1,6 +1,26 @@
 {
   "civil_service": [
     {
+      "title": "General Professional Iv, Archaeologist",
+      "job_number": "DLNR-2026-0002",
+      "division": "State Parks",
+      "location": "Oahu",
+      "yearly_salary": null,
+      "posted": "Thu, 15 Oct 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5473816-0"
+    },
+    {
+      "title": "Forestry & Wildlife Technician IV",
+      "job_number": "26-0130",
+      "division": "DLNR",
+      "location": "Kamuela/kohala/waikoloa",
+      "yearly_salary": 46800.0,
+      "posted": "Wed, 14 Oct 2026",
+      "closing": "Thu, 15 Oct 2026 23:59:00:0",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5274494-0"
+    },
+    {
       "title": "Equipment Operator II",
       "job_number": "26-0323",
       "division": "DLNR",
@@ -91,16 +111,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4378340-0"
     },
     {
-      "title": "Forestry & Wildlife Technician IV",
-      "job_number": "26-0130",
-      "division": "DLNR",
-      "location": "Kamuela/kohala/waikoloa",
-      "yearly_salary": 46800.0,
-      "posted": "Wed, 01 Jul 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5274494-0"
-    },
-    {
       "title": "Abstracting Assistant IV",
       "job_number": "25-0380",
       "division": "DLNR",
@@ -122,5 +132,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-10-14T21:21:20.294021+00:00"
+  "generated_at_utc": "2026-10-15T21:02:05.461677+00:00"
 }
