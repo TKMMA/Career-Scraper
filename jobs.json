@@ -1,6 +1,26 @@
 {
   "civil_service": [
     {
+      "title": "Equipment Operator II",
+      "job_number": "26-0323",
+      "division": "DLNR",
+      "location": "Halawa To Kalihi, Oahu",
+      "yearly_salary": null,
+      "posted": "Sun, 01 Nov 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5445041-0"
+    },
+    {
+      "title": "Abstracting Assistant IV",
+      "job_number": "25-0380",
+      "division": "DLNR",
+      "location": "Downtown, Oahu",
+      "yearly_salary": 43272.0,
+      "posted": "Fri, 30 Oct 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093678-0"
+    },
+    {
       "title": "General Professional Iv, Archaeologist",
       "job_number": "DLNR-2026-0002",
       "division": "State Parks",
@@ -9,16 +29,6 @@
       "posted": "Thu, 15 Oct 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5473816-0"
-    },
-    {
-      "title": "Equipment Operator II",
-      "job_number": "26-0323",
-      "division": "DLNR",
-      "location": "Halawa To Kalihi, Oahu",
-      "yearly_salary": null,
-      "posted": "Fri, 25 Sep 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5445041-0"
     },
     {
       "title": "Forestry & Wildlife Worker III",
@@ -71,16 +81,6 @@
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4378340-0"
     },
     {
-      "title": "Abstracting Assistant IV",
-      "job_number": "25-0380",
-      "division": "DLNR",
-      "location": "Downtown, Oahu",
-      "yearly_salary": 43272.0,
-      "posted": "Tue, 21 Apr 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093678-0"
-    },
-    {
       "title": "Abstracting Assistant V",
       "job_number": "23-0385",
       "division": "DLNR",
@@ -92,5 +92,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-10-31T21:08:36.568837+00:00"
+  "generated_at_utc": "2026-11-01T21:47:37.480493+00:00"
 }
