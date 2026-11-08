@@ -6,9 +6,19 @@
       "division": "DLNR",
       "location": "Halawa To Kalihi, Oahu",
       "yearly_salary": null,
-      "posted": "Sun, 01 Nov 2026",
+      "posted": "Wed, 04 Nov 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5445041-0"
+    },
+    {
+      "title": "Abstracting Assistant V",
+      "job_number": "23-0385",
+      "division": "DLNR",
+      "location": "Downtown, Oahu",
+      "yearly_salary": 46800.0,
+      "posted": "Tue, 03 Nov 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4092249-0"
     },
     {
       "title": "Abstracting Assistant IV",
@@ -79,18 +89,8 @@
       "posted": "Wed, 01 Jul 2026",
       "closing": "Continuous",
       "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4378340-0"
-    },
-    {
-      "title": "Abstracting Assistant V",
-      "job_number": "23-0385",
-      "division": "DLNR",
-      "location": "Downtown, Oahu",
-      "yearly_salary": 46800.0,
-      "posted": "Thu, 12 Feb 2026",
-      "closing": "Continuous",
-      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4092249-0"
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-11-07T21:33:03.819670+00:00"
+  "generated_at_utc": "2026-11-08T21:47:50.711574+00:00"
 }
