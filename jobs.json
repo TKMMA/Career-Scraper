@@ -1,6 +1,16 @@
 {
   "civil_service": [
     {
+      "title": "Park Caretaker I",
+      "job_number": "26-0424",
+      "division": "DLNR",
+      "location": "Hana, Maui",
+      "yearly_salary": null,
+      "posted": "Mon, 09 Nov 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5540427-0"
+    },
+    {
       "title": "Equipment Operator II",
       "job_number": "26-0323",
       "division": "DLNR",
@@ -92,5 +102,5 @@
     }
   ],
   "rcuh": [],
-  "generated_at_utc": "2026-11-08T21:47:50.711574+00:00"
+  "generated_at_utc": "2026-11-10T01:16:04.144013+00:00"
 }
