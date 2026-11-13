@@ -1,8 +1,106 @@
 {
-  "civil_service": [],
+  "civil_service": [
+    {
+      "title": "Park Caretaker I",
+      "job_number": "26-0424",
+      "division": "DLNR",
+      "location": "Hana, Maui",
+      "yearly_salary": null,
+      "posted": "Mon, 09 Nov 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5540427-0"
+    },
+    {
+      "title": "Equipment Operator II",
+      "job_number": "26-0323",
+      "division": "DLNR",
+      "location": "Halawa To Kalihi, Oahu",
+      "yearly_salary": null,
+      "posted": "Wed, 04 Nov 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5445041-0"
+    },
+    {
+      "title": "Abstracting Assistant V",
+      "job_number": "23-0385",
+      "division": "DLNR",
+      "location": "Downtown, Oahu",
+      "yearly_salary": 46800.0,
+      "posted": "Tue, 03 Nov 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4092249-0"
+    },
+    {
+      "title": "Abstracting Assistant IV",
+      "job_number": "25-0380",
+      "division": "DLNR",
+      "location": "Downtown, Oahu",
+      "yearly_salary": 43272.0,
+      "posted": "Fri, 30 Oct 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5093678-0"
+    },
+    {
+      "title": "General Professional Iv, Archaeologist",
+      "job_number": "DLNR-2026-0002",
+      "division": "State Parks",
+      "location": "Oahu",
+      "yearly_salary": null,
+      "posted": "Thu, 15 Oct 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5473816-0"
+    },
+    {
+      "title": "Forestry & Wildlife Worker III",
+      "job_number": "26-0351",
+      "division": "DLNR",
+      "location": "Manoa To Kahala, Oahu",
+      "yearly_salary": null,
+      "posted": "Fri, 11 Sep 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/5476988-0"
+    },
+    {
+      "title": "Land Agent II And III",
+      "job_number": "25-0121",
+      "division": "DLNR",
+      "location": "Lihue, Kauai",
+      "yearly_salary": 56700.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4916396-0"
+    },
+    {
+      "title": "Education Specialist (hunter & Conservation Resources) III",
+      "job_number": "22-0636",
+      "division": "DLNR",
+      "location": "Pearl City, Oahu",
+      "yearly_salary": 61284.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/3725829-0"
+    },
+    {
+      "title": "Conveyancing Supervisor",
+      "job_number": "DLNR-2024-0004",
+      "division": "Bureau Of Conveyances",
+      "location": "Downtown, Oahu",
+      "yearly_salary": 72264.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4553832-0"
+    },
+    {
+      "title": "Abstractor IX",
+      "job_number": "24-0066",
+      "division": "DLNR",
+      "location": "Downtown, Oahu",
+      "yearly_salary": 66492.0,
+      "posted": "Wed, 01 Jul 2026",
+      "closing": "Continuous",
+      "link": "https://www.governmentjobs.com/careers/hawaii/jobs/4378340-0"
+    }
+  ],
   "rcuh": [],
-  "generated_at_utc": "2026-11-12T23:17:24.211650+00:00",
-  "errors": [
-    "HTTPSConnectionPool(host='www.governmentjobs.com', port=443): Max retries exceeded with url: /SearchEngine/JobsFeed?agency=hawaii (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.governmentjobs.com', port=443) at 0x732d379ae710>, 'Connection to www.governmentjobs.com timed out. (connect timeout=40)'))"
-  ]
+  "generated_at_utc": "2026-11-13T23:20:17.648758+00:00"
 }
